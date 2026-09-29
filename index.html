@@ -24,9 +24,10 @@
   color-scheme:light;
 }
 *{box-sizing:border-box}
-html{scroll-behavior:smooth}
+[hidden]{display:none!important}
+html{scroll-behavior:smooth;overflow-x:clip}
 @media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}*{transition:none!important;animation:none!important}}
-body{margin:0;background:var(--paper);color:var(--text);font:16px/1.6 var(--f-body)}
+body{margin:0;overflow-x:clip;background:var(--paper);color:var(--text);font:16px/1.6 var(--f-body)}
 img{max-width:100%;display:block}
 a{color:inherit}
 :focus-visible{outline:2px solid var(--gold);outline-offset:3px;border-radius:4px}
@@ -166,12 +167,13 @@ section{padding-block:88px}
 .faq-intro p{margin:0;color:var(--muted)}
 details{border-bottom:1px solid var(--line);padding-block:18px}
 details:first-child{border-top:1px solid var(--line)}
-summary{cursor:pointer;list-style:none;display:flex;justify-content:space-between;gap:16px;font-weight:600;font-size:17px}
+summary{cursor:pointer;list-style:none;display:flex;min-width:0;overflow-wrap:anywhere;justify-content:space-between;gap:16px;font-weight:600;font-size:17px}
 summary::-webkit-details-marker{display:none}
 summary::after{content:"+";font:500 24px/1 var(--f-display);color:var(--gold-deep);transition:transform .2s}
 details[open] summary::after{transform:rotate(45deg)}
 details p{margin:12px 0 0;color:var(--muted);max-width:62ch}
 @media (max-width:900px){.faq{grid-template-columns:1fr}}
+.faq>div{min-width:0}
 
 /* Contact */
 .contact{background:var(--paper-2)}
@@ -188,6 +190,68 @@ form textarea{font:inherit;font-size:15px;background:var(--paper);border:1px sol
 .ok{grid-column:1/-1;background:var(--paper);border-left:3px solid var(--gold);padding:12px 14px;border-radius:6px;font-size:14px}
 @media (max-width:900px){.contact-grid{grid-template-columns:1fr}}
 @media (max-width:520px){form{grid-template-columns:1fr}}
+
+/* Hero CTAs */
+.hero-cta{display:flex;flex-wrap:wrap;gap:12px;margin-top:6px}
+.btn.line{background:transparent;color:var(--on-ink);border:1px solid var(--ink-line)}
+.btn.line:hover{border-color:var(--gold);color:var(--gold);background:transparent}
+
+/* Sell funnel */
+.sell-grid{display:grid;grid-template-columns:minmax(0,.75fr) minmax(0,1.25fr);gap:clamp(24px,4vw,48px);align-items:start}
+.sell-grid .steps{grid-template-columns:1fr}
+.sell-grid .steps li{grid-template-columns:auto 1fr;column-gap:18px;row-gap:4px;padding:22px}
+.sell-grid .steps .n{grid-row:1/3;font-size:36px}
+.funnel{background:var(--card);color:var(--text);border-radius:20px;padding:clamp(20px,3vw,32px);display:grid;grid-template-columns:1fr;gap:20px}
+.f-top{display:flex;justify-content:space-between;align-items:baseline;gap:12px}
+.f-top b{font-size:12px;letter-spacing:.16em;text-transform:uppercase;color:var(--gold-deep)}
+.f-top span{font-size:13px;color:var(--muted);font-variant-numeric:tabular-nums}
+.f-bar{height:4px;background:var(--paper-2);border-radius:4px;overflow:hidden}
+.f-bar i{display:block;height:100%;width:25%;background:var(--gold);transition:width .35s ease}
+.f-step{border:0;margin:0;padding:0;min-width:0;display:grid;gap:14px}
+.f-step legend{font:600 26px/1.15 var(--f-display);padding:0;margin-bottom:16px}
+.opts{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+.opt{position:relative}
+.opt input{position:absolute;opacity:0;width:1px;height:1px}
+.opt span{display:grid;gap:10px;justify-items:start;border:1px solid var(--line);border-radius:14px;padding:18px;cursor:pointer;transition:border-color .2s,background .2s;height:100%}
+.opt span:hover{border-color:var(--gold)}
+.opt svg{width:30px;height:30px;stroke:var(--gold-deep);fill:none;stroke-width:1.6}
+.opt b{font-weight:600}
+.opt input:checked+span{border-color:var(--gold);background:var(--paper);box-shadow:inset 0 0 0 1px var(--gold)}
+.opt input:focus-visible+span{outline:2px solid var(--gold);outline-offset:2px}
+.pills{display:flex;flex-wrap:wrap;gap:8px}
+.pills .opt span{padding:10px 16px;border-radius:999px;display:block;font-size:14px}
+.grid2{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}
+.grid2 .full{grid-column:1/-1}
+.funnel textarea{font:inherit;font-size:15px;background:var(--paper);border:1px solid var(--line);border-radius:10px;padding:12px 14px;min-height:88px;resize:vertical;width:100%}
+.drop{position:relative;border:1.5px dashed var(--line);border-radius:14px;padding:22px;text-align:center;color:var(--muted);font-size:14px;transition:border-color .2s,background .2s}
+.drop.over,.drop:hover{border-color:var(--gold);background:var(--paper)}
+.drop input{position:absolute;inset:0;opacity:0;cursor:pointer}
+.thumbs{display:flex;flex-wrap:wrap;gap:8px}
+.thumbs div{position:relative;width:68px;height:68px}
+.thumbs img{width:100%;height:100%;object-fit:cover;border-radius:8px}
+.thumbs button{all:unset;cursor:pointer;position:absolute;top:-6px;right:-6px;width:22px;height:22px;border-radius:50%;background:var(--ink);color:var(--on-ink);font-size:14px;line-height:22px;text-align:center}
+.consent{display:flex;gap:10px;align-items:flex-start;font-size:13px;color:var(--muted)}
+.consent input{accent-color:var(--gold-deep);margin-top:3px;width:16px;height:16px;flex:none}
+.f-nav{display:flex;justify-content:space-between;gap:12px}
+.btn.ghost{background:transparent;color:var(--text);border:1px solid var(--line)}
+.btn.ghost:hover{background:var(--paper);color:var(--text)}
+.btn[disabled]{opacity:.6;cursor:wait}
+.f-err{margin:0;color:#a4332a;font-size:14px}
+.f-done{display:grid;gap:14px;justify-items:start}
+.f-done .ic{width:52px;height:52px;border-radius:50%;background:var(--paper);display:grid;place-items:center}
+.f-done .ic svg{width:26px;height:26px;stroke:var(--gold-deep);fill:none;stroke-width:2.2}
+.f-done h3{font-size:28px}
+.f-done p{margin:0;color:var(--muted);max-width:48ch}
+.btn.wa{background:#1f7a4d;color:#fff}
+.btn.wa:hover{background:#17603c}
+.hp{position:absolute;left:-9999px;width:1px;height:1px;overflow:hidden}
+section,.funnel{scroll-margin-top:88px}
+.funnel [aria-invalid="true"]{border-color:#a4332a;box-shadow:0 0 0 1px #a4332a}
+.opts:has([aria-invalid="true"]) .opt span{border-color:#a4332a}
+.funnel .field label,.funnel .lbl{font-size:13px;font-weight:600}
+.f-step[hidden],.f-done[hidden]{display:none!important}
+@media (max-width:900px){.sell-grid{grid-template-columns:1fr}.sell-grid .steps{grid-template-columns:1fr 1fr}.sell-grid .steps li{grid-template-columns:1fr}.sell-grid .steps .n{grid-row:auto}}
+@media (max-width:520px){.opts,.grid2{grid-template-columns:1fr}.sell-grid .steps{grid-template-columns:1fr}}
 
 footer{background:var(--ink);color:var(--on-ink-muted);font-size:14px;padding-block:36px}
 .foot{display:flex;flex-wrap:wrap;gap:16px 32px;align-items:center;justify-content:space-between}
@@ -228,6 +292,7 @@ footer{background:var(--ink);color:var(--on-ink-muted);font-size:14px;padding-bl
         <div class="chips"><span class="chip" data-t="chip1"></span><span class="chip" data-t="chip2"></span><span class="chip" data-t="chip3"></span></div>
         <h1><span data-t="h1a"></span><br><em data-t="h1b"></em></h1>
         <p class="lead" data-t="lead"></p>
+        <div class="hero-cta"><a class="btn gold" href="#vendre" data-t="heroSell"></a><a class="btn line" href="#biens" data-t="heroBuy"></a></div>
       </div>
       <div class="hero-photo">
         <img src="assets/img/hero.jpg" alt="" data-ta="altHero">
@@ -302,13 +367,78 @@ footer{background:var(--ink);color:var(--on-ink-muted);font-size:14px;padding-bl
         <div><span class="eyebrow" data-t="sellEyebrow"></span><h2 data-t="sellH"></h2></div>
         <p data-t="sellP"></p>
       </div>
-      <ol class="steps">
-        <li><span class="n">1</span><b data-t="s1"></b><span data-t="s1s"></span></li>
-        <li><span class="n">2</span><b data-t="s2"></b><span data-t="s2s"></span></li>
-        <li><span class="n">3</span><b data-t="s3"></b><span data-t="s3s"></span></li>
-        <li><span class="n">4</span><b data-t="s4"></b><span data-t="s4s"></span></li>
-      </ol>
-      <div class="sell-cta"><a class="btn gold" href="#contact" data-t="sellBtn"></a><p data-t="sellNote"></p></div>
+      <div class="sell-grid">
+        <ol class="steps">
+          <li><span class="n">1</span><b data-t="s1"></b><span data-t="s1s"></span></li>
+          <li><span class="n">2</span><b data-t="s2"></b><span data-t="s2s"></span></li>
+          <li><span class="n">3</span><b data-t="s3"></b><span data-t="s3s"></span></li>
+          <li><span class="n">4</span><b data-t="s4"></b><span data-t="s4s"></span></li>
+        </ol>
+
+        <form class="funnel" id="funnel" novalidate>
+          <div class="f-top"><b data-t="fEyebrow"></b><span id="f-count"></span></div>
+          <div class="f-bar" aria-hidden="true"><i id="f-bar"></i></div>
+
+          <fieldset class="f-step" data-step="1">
+            <legend data-t="q_type"></legend>
+            <div class="opts">
+              <label class="opt"><input type="radio" name="ptype" value="house" id="pt-house" required><span><svg viewBox="0 0 30 30"><path d="M4 14 L15 5 L26 14 M7 12 V25 H23 V12 M12 25 V18 H18 V25"/></svg><b data-t="house"></b></span></label>
+              <label class="opt"><input type="radio" name="ptype" value="apt" id="pt-apt"><span><svg viewBox="0 0 30 30"><path d="M7 4 H23 V26 H7 Z M11 8 H13 M17 8 H19 M11 12 H13 M17 12 H19 M11 16 H13 M17 16 H19 M13 26 V21 H17 V26"/></svg><b data-t="apt"></b></span></label>
+              <label class="opt"><input type="radio" name="ptype" value="building" id="pt-bldg"><span><svg viewBox="0 0 30 30"><path d="M4 26 H26 M6 26 V10 H14 V26 M14 26 V5 H24 V26 M9 14 H11 M9 18 H11 M17 9 H21 M17 13 H21 M17 17 H21"/></svg><b data-t="building"></b></span></label>
+              <label class="opt"><input type="radio" name="ptype" value="land" id="pt-land"><span><svg viewBox="0 0 30 30"><path d="M3 22 L10 15 L15 19 L21 12 L27 18 M3 26 H27 M20 4 V10 M17 7 H23"/></svg><b data-t="land"></b></span></label>
+            </div>
+          </fieldset>
+
+          <fieldset class="f-step" data-step="2" hidden>
+            <legend data-t="q_where"></legend>
+            <div class="grid2">
+              <div class="field"><label for="v-city" data-t="fCity"></label><input id="v-city" required autocomplete="address-level2" data-tp="phCity"></div>
+              <div class="field"><label for="v-zip" data-t="vZip"></label><input id="v-zip" inputmode="numeric" pattern="[0-9]{4}" maxlength="4" required placeholder="1470"></div>
+              <div class="field"><label for="v-m2" data-t="vM2"></label><input id="v-m2" type="number" min="10" inputmode="numeric" placeholder="160"></div>
+              <div class="field"><label for="v-beds" data-t="vBeds"></label><select id="v-beds"><option value="">–</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5+</option></select></div>
+            </div>
+            <div class="field"><span class="lbl" data-t="vState" style="font-size:13px;font-weight:600"></span>
+              <div class="pills" role="radiogroup">
+                <label class="opt"><input type="radio" name="pstate" value="new" id="ps-new"><span data-t="st_new"></span></label>
+                <label class="opt"><input type="radio" name="pstate" value="good" id="ps-good"><span data-t="st_good"></span></label>
+                <label class="opt"><input type="radio" name="pstate" value="refresh" id="ps-ref"><span data-t="st_refresh"></span></label>
+                <label class="opt"><input type="radio" name="pstate" value="renovate" id="ps-ren"><span data-t="st_renovate"></span></label>
+              </div>
+            </div>
+          </fieldset>
+
+          <fieldset class="f-step" data-step="3" hidden>
+            <legend data-t="q_photos"></legend>
+            <div class="drop" id="drop"><input type="file" id="v-files" accept="image/*" multiple><span data-t="vDrop"></span></div>
+            <div class="thumbs" id="thumbs"></div>
+            <div class="field"><label for="v-note" data-t="vNote"></label><textarea id="v-note" data-tp="phNote"></textarea></div>
+          </fieldset>
+
+          <fieldset class="f-step" data-step="4" hidden>
+            <legend data-t="q_contact"></legend>
+            <div class="grid2">
+              <div class="field"><label for="v-name" data-t="cName"></label><input id="v-name" required autocomplete="name"></div>
+              <div class="field"><label for="v-tel" data-t="dPhone"></label><input id="v-tel" type="tel" required autocomplete="tel" placeholder="+32 4.. .. .. .."></div>
+              <div class="field full"><label for="v-mail">E-mail</label><input id="v-mail" type="email" autocomplete="email"></div>
+            </div>
+            <label class="consent"><input type="checkbox" id="v-ok" required><span data-t="vConsent"></span></label>
+            <div class="hp" aria-hidden="true"><label for="v-web">Website</label><input id="v-web" tabindex="-1" autocomplete="off"></div>
+          </fieldset>
+
+          <div class="f-done" id="f-done" hidden>
+            <div class="ic"><svg viewBox="0 0 26 26"><path d="M5 13.5 L10.5 19 L21 7"/></svg></div>
+            <h3 data-t="doneH"></h3>
+            <p id="done-p"></p>
+            <div class="hero-cta"><a class="btn wa" id="wa-link" href="#" target="_blank" rel="noopener" data-t="doneWa"></a><button type="button" class="btn ghost" id="f-restart" data-t="restart"></button></div>
+          </div>
+
+          <p class="f-err" id="f-err" role="alert" hidden></p>
+          <div class="f-nav" id="f-nav">
+            <button type="button" class="btn ghost" id="f-back" data-t="back"></button>
+            <button type="submit" class="btn gold" id="f-next" data-t="next"></button>
+          </div>
+        </form>
+      </div>
     </div>
   </section>
 
@@ -381,7 +511,15 @@ q1:"Quels types de biens achetez-vous ?",a1:"Principalement des maisons et appar
 q2:"L'offre d'achat est-elle gratuite ?",a2:"Oui. La visite et l'offre sont gratuites et sans engagement.",
 q3:"Combien de temps prend une vente ?",a3:"Après acceptation de l'offre, le compromis peut être signé rapidement. L'acte authentique suit dans le délai légal habituel, chez le notaire.",
 q4:"Proposez-vous des biens en location ?",a4:"Oui, une partie de notre portefeuille est proposée en location. Consultez nos biens ou contactez-nous pour les disponibilités.",
-contactH:"Parlons de votre projet",contactP:"Achat, vente ou location : laissez-nous un message et nous vous recontactons.",dAddr:"Adresse",dPhone:"Téléphone",dVat:"Numéro d'entreprise",cName:"Nom",cSubj:"Sujet",o1:"Je souhaite vendre mon bien",o2:"Je cherche un bien à acheter",o3:"Je cherche un bien à louer",cSend:"Envoyer le message",cOk:"Merci. Ceci est une maquette : le formulaire sera relié à la boîte mail de ZAM SRL lors de la mise en ligne.",founded:"Fondée en 2002"},
+contactH:"Parlons de votre projet",contactP:"Achat, vente ou location : laissez-nous un message et nous vous recontactons.",dAddr:"Adresse",dPhone:"Téléphone",dVat:"Numéro d'entreprise",cName:"Nom",cSubj:"Sujet",o1:"Je souhaite vendre mon bien",o2:"Je cherche un bien à acheter",o3:"Je cherche un bien à louer",cSend:"Envoyer le message",cOk:"Votre message est prêt. Dernière étape : envoyez-le via WhatsApp.",founded:"Fondée en 2002",
+heroSell:"Vendre mon bien",heroBuy:"Voir nos biens",
+fEyebrow:"Offre d'achat gratuite",stepOf:"Étape {n} sur 4",q_type:"Quel type de bien souhaitez-vous vendre ?",building:"Immeuble de rapport",
+q_where:"Où se trouve le bien ?",vZip:"Code postal",vM2:"Surface habitable (m²)",vBeds:"Chambres",vState:"État du bien",st_new:"Neuf ou rénové",st_good:"Bon état",st_refresh:"À rafraîchir",st_renovate:"À rénover",
+q_photos:"Quelques photos du bien ?",vDrop:"Glissez vos photos ici ou cliquez pour choisir (facultatif)",vNote:"Informations utiles",phNote:"Jardin, garage, PEB, locataire en place…",
+q_contact:"Où pouvons-nous vous joindre ?",vConsent:"J'accepte que ZAM SRL me contacte au sujet de mon bien. Mes données ne sont pas partagées.",
+back:"Retour",next:"Suivant",submit:"Recevoir mon offre",errReq:"Complétez les champs indiqués pour continuer.",errZip:"Le code postal belge compte 4 chiffres.",
+doneH:"Votre demande est prête",doneP:"Dernière étape : envoyez-la via WhatsApp. Nous vous répondons en principe dans les 24 heures ouvrables.",donePh:"Joignez vos {n} photo(s) dans la conversation WhatsApp.",doneWa:"Envoyer via WhatsApp",restart:"Nouvelle demande",
+waIntro:"Bonjour ZAM SRL, je souhaite recevoir une offre d'achat pour mon bien.",waPhotos:"{n} photo(s) suivent dans ce chat.",waContact:"Bonjour ZAM SRL,",cWa:"Ouvrir WhatsApp"},
 nl:{navHome:"Home",navProps:"Ons aanbod",navSell:"Verkopen",navAbout:"Over ons",navContact:"Contact",ctaTop:"Contact opnemen",
 chip1:"Woningen",chip2:"Appartementen",chip3:"Waals-Brabant",
 h1a:"Aankoop van panden",h1b:"en verkoop tegen de beste prijs",lead:"Uw vastgoedproject, onze prioriteit. Vastgoedvennootschap gevestigd in Genappe sinds 2002.",
@@ -401,7 +539,15 @@ q1:"Welke panden kopen jullie?",a1:"Vooral residentiële woningen en appartement
 q2:"Is het aankoopbod gratis?",a2:"Ja. Het bezoek en het bod zijn gratis en vrijblijvend.",
 q3:"Hoe lang duurt een verkoop?",a3:"Na aanvaarding van het bod kan de compromis snel getekend worden. De authentieke akte volgt binnen de gebruikelijke wettelijke termijn bij de notaris.",
 q4:"Verhuren jullie ook panden?",a4:"Ja, een deel van onze portefeuille wordt verhuurd. Bekijk ons aanbod of neem contact op voor beschikbaarheid.",
-contactH:"Laten we over uw project praten",contactP:"Kopen, verkopen of huren: laat een bericht achter en we nemen contact met u op.",dAddr:"Adres",dPhone:"Telefoon",dVat:"Ondernemingsnummer",cName:"Naam",cSubj:"Onderwerp",o1:"Ik wil mijn pand verkopen",o2:"Ik zoek een pand om te kopen",o3:"Ik zoek een pand om te huren",cSend:"Bericht versturen",cOk:"Bedankt. Dit is een prototype: het formulier wordt bij livegang gekoppeld aan de mailbox van ZAM SRL.",founded:"Opgericht in 2002"},
+contactH:"Laten we over uw project praten",contactP:"Kopen, verkopen of huren: laat een bericht achter en we nemen contact met u op.",dAddr:"Adres",dPhone:"Telefoon",dVat:"Ondernemingsnummer",cName:"Naam",cSubj:"Onderwerp",o1:"Ik wil mijn pand verkopen",o2:"Ik zoek een pand om te kopen",o3:"Ik zoek een pand om te huren",cSend:"Bericht versturen",cOk:"Uw bericht staat klaar. Laatste stap: verstuur het via WhatsApp.",founded:"Opgericht in 2002",
+heroSell:"Mijn pand verkopen",heroBuy:"Bekijk ons aanbod",
+fEyebrow:"Gratis aankoopbod",stepOf:"Stap {n} van 4",q_type:"Welk type pand wilt u verkopen?",building:"Opbrengsteigendom",
+q_where:"Waar ligt het pand?",vZip:"Postcode",vM2:"Bewoonbare oppervlakte (m²)",vBeds:"Slaapkamers",vState:"Staat van het pand",st_new:"Nieuw of gerenoveerd",st_good:"Goede staat",st_refresh:"Op te frissen",st_renovate:"Te renoveren",
+q_photos:"Enkele foto's van het pand?",vDrop:"Sleep uw foto's hierheen of klik om te kiezen (optioneel)",vNote:"Nuttige informatie",phNote:"Tuin, garage, EPB, huurder aanwezig…",
+q_contact:"Hoe kunnen we u bereiken?",vConsent:"Ik ga akkoord dat ZAM SRL mij contacteert over mijn pand. Mijn gegevens worden niet gedeeld.",
+back:"Terug",next:"Volgende",submit:"Mijn bod ontvangen",errReq:"Vul de aangeduide velden in om verder te gaan.",errZip:"Een Belgische postcode telt 4 cijfers.",
+doneH:"Uw aanvraag staat klaar",doneP:"Laatste stap: verstuur ze via WhatsApp. We antwoorden normaal binnen 24 werkuren.",donePh:"Voeg uw {n} foto('s) toe in het WhatsApp-gesprek.",doneWa:"Versturen via WhatsApp",restart:"Nieuwe aanvraag",
+waIntro:"Goedendag ZAM SRL, ik ontvang graag een aankoopbod voor mijn pand.",waPhotos:"{n} foto('s) volgen in deze chat.",waContact:"Goedendag ZAM SRL,",cWa:"WhatsApp openen"},
 en:{navHome:"Home",navProps:"Properties",navSell:"Sell",navAbout:"About",navContact:"Contact",ctaTop:"Get in touch",
 chip1:"Houses",chip2:"Apartments",chip3:"Walloon Brabant",
 h1a:"We buy property",h1b:"and sell at the best price",lead:"Your property project, our priority. A real estate company based in Genappe since 2002.",
@@ -421,7 +567,15 @@ q1:"What kind of property do you buy?",a1:"Mainly residential houses and apartme
 q2:"Is the purchase offer free?",a2:"Yes. The viewing and the offer are free and without obligation.",
 q3:"How long does a sale take?",a3:"Once the offer is accepted, the sales agreement can be signed quickly. The final deed follows within the usual legal period at the notary.",
 q4:"Do you offer properties for rent?",a4:"Yes, part of our portfolio is available to rent. Browse our properties or contact us for availability.",
-contactH:"Let's talk about your project",contactP:"Buying, selling or renting: leave us a message and we'll get back to you.",dAddr:"Address",dPhone:"Phone",dVat:"Company number",cName:"Name",cSubj:"Subject",o1:"I want to sell my property",o2:"I'm looking to buy",o3:"I'm looking to rent",cSend:"Send message",cOk:"Thank you. This is a prototype: the form will be connected to ZAM SRL's inbox at launch.",founded:"Founded in 2002"}
+contactH:"Let's talk about your project",contactP:"Buying, selling or renting: leave us a message and we'll get back to you.",dAddr:"Address",dPhone:"Phone",dVat:"Company number",cName:"Name",cSubj:"Subject",o1:"I want to sell my property",o2:"I'm looking to buy",o3:"I'm looking to rent",cSend:"Send message",cOk:"Your message is ready. Last step: send it through WhatsApp.",founded:"Founded in 2002",
+heroSell:"Sell my property",heroBuy:"View properties",
+fEyebrow:"Free purchase offer",stepOf:"Step {n} of 4",q_type:"What type of property are you selling?",building:"Investment building",
+q_where:"Where is the property?",vZip:"Postcode",vM2:"Living area (m²)",vBeds:"Bedrooms",vState:"Condition",st_new:"New or renovated",st_good:"Good condition",st_refresh:"Needs a refresh",st_renovate:"Needs renovation",
+q_photos:"A few photos of the property?",vDrop:"Drop your photos here or click to choose (optional)",vNote:"Useful details",phNote:"Garden, garage, EPC, sitting tenant…",
+q_contact:"How can we reach you?",vConsent:"I agree that ZAM SRL may contact me about my property. My details are not shared.",
+back:"Back",next:"Next",submit:"Get my offer",errReq:"Fill in the highlighted fields to continue.",errZip:"A Belgian postcode has 4 digits.",
+doneH:"Your request is ready",doneP:"Last step: send it through WhatsApp. We usually reply within 24 business hours.",donePh:"Attach your {n} photo(s) in the WhatsApp chat.",doneWa:"Send via WhatsApp",restart:"New request",
+waIntro:"Hello ZAM SRL, I would like a purchase offer for my property.",waPhotos:"{n} photo(s) follow in this chat.",waContact:"Hello ZAM SRL,",cWa:"Open WhatsApp"}
 };
 const PROPS=[
  {img:"hero",deal:"sale",type:"house",city:"Genappe",price:785000,beds:4,baths:2,m2:245,name:{fr:"Villa contemporaine",nl:"Hedendaagse villa",en:"Contemporary villa"}},
@@ -446,6 +600,7 @@ function setLang(l){
   document.querySelectorAll(".lang button").forEach(b=>b.setAttribute("aria-pressed",b.dataset.lang===lang));
   try{localStorage.setItem("zam-lang",lang)}catch(e){}
   render();
+  if(typeof showStep==="function")showStep();
 }
 document.querySelectorAll(".lang button").forEach(b=>b.addEventListener("click",()=>setLang(b.dataset.lang)));
 document.getElementById("search").addEventListener("submit",e=>{e.preventDefault();render();document.getElementById("biens").scrollIntoView()});
@@ -453,7 +608,113 @@ document.getElementById("search").addEventListener("submit",e=>{e.preventDefault
 document.getElementById("f-city").addEventListener("input",render);
 function syncQuick(){const v=document.getElementById("f-deal").value;document.querySelectorAll(".quick button").forEach(b=>b.setAttribute("aria-pressed",b.dataset.q===v))}
 document.querySelectorAll(".quick button").forEach(b=>b.addEventListener("click",()=>{document.getElementById("f-deal").value=b.dataset.q;syncQuick();render()}));
-document.getElementById("cform").addEventListener("submit",e=>{e.preventDefault();document.getElementById("c-ok").hidden=false});
+/* WhatsApp routing */
+const WA="32473924706";
+const waUrl=txt=>"https://wa.me/"+WA+"?text="+encodeURIComponent(txt);
+const $=id=>document.getElementById(id);
+const fill=(s,n)=>s.replace("{n}",n);
+
+/* Contact form */
+$("cform").addEventListener("submit",e=>{
+  e.preventDefault();const f=e.target;if(!f.reportValidity())return;
+  const t=T[lang],subj=$("c-subj");
+  const msg=[t.waContact,"",$("c-msg").value.trim(),"",
+    t.cSubj+" : "+subj.options[subj.selectedIndex].text,
+    t.cName+" : "+$("c-name").value.trim(),
+    "E-mail : "+$("c-mail").value.trim(),
+    $("c-tel").value.trim()?t.dPhone+" : "+$("c-tel").value.trim():""].filter((l,i,a)=>l!==""||a[i-1]!=="").join("\n");
+  const ok=$("c-ok");ok.hidden=false;
+  ok.innerHTML="";ok.append(t.cOk+" ");
+  const a=document.createElement("a");a.href=waUrl(msg);a.target="_blank";a.rel="noopener";a.textContent=t.cWa+" →";a.style.fontWeight="600";ok.append(a);
+});
+
+/* Sell funnel */
+const F=$("funnel"),STEPS=[...F.querySelectorAll(".f-step")];let step=1,files=[];
+function showStep(){
+  const t=T[lang],done=step>4;
+  STEPS.forEach(s=>s.hidden=+s.dataset.step!==step);
+  $("f-done").hidden=!done;$("f-nav").hidden=done;$("f-err").hidden=true;
+  F.querySelector(".f-bar").hidden=done;$("f-count").hidden=done;
+  $("f-bar").style.width=Math.min(step,4)*25+"%";
+  $("f-count").textContent=fill(t.stepOf,Math.min(step,4));
+  $("f-back").style.visibility=step>1?"visible":"hidden";
+  $("f-next").textContent=step===4?t.submit:t.next;
+  if(done)renderDone();
+}
+function invalid(els,msg){
+  els.forEach(el=>el.setAttribute("aria-invalid","true"));
+  const err=$("f-err");err.textContent=msg||T[lang].errReq;err.hidden=false;
+  (els[0]&&els[0].focus)&&els[0].focus();return false;
+}
+function validate(){
+  F.querySelectorAll("[aria-invalid]").forEach(el=>el.removeAttribute("aria-invalid"));
+  const t=T[lang];
+  if(step===1){if(!F.querySelector("[name=ptype]:checked"))return invalid([$("pt-house")]);}
+  if(step===2){
+    const bad=[$("v-city"),$("v-zip")].filter(el=>!el.value.trim());
+    if(bad.length)return invalid(bad);
+    if(!/^\d{4}$/.test($("v-zip").value.trim()))return invalid([$("v-zip")],t.errZip);
+  }
+  if(step===4){
+    const bad=[$("v-name"),$("v-tel")].filter(el=>!el.value.trim());
+    if(!$("v-ok").checked)bad.push($("v-ok"));
+    if($("v-mail").value&&!$("v-mail").checkValidity())bad.push($("v-mail"));
+    if(bad.length)return invalid(bad);
+  }
+  return true;
+}
+function label(name){const c=F.querySelector(`[name=${name}]:checked`);return c?c.nextElementSibling.textContent.trim():""}
+function waMessage(){
+  const t=T[lang],v=id=>$(id).value.trim();
+  const rows=[
+    [t.fType,label("ptype")],
+    [t.fCity,[v("v-zip"),v("v-city")].filter(Boolean).join(" ")],
+    [t.vM2,v("v-m2")],[t.vBeds,v("v-beds")],[t.vState,label("pstate")],
+    [t.vNote,v("v-note")],[t.cName,v("v-name")],[t.dPhone,v("v-tel")],["E-mail",v("v-mail")]
+  ].filter(r=>r[1]).map(r=>"• "+r[0]+" : "+r[1]);
+  return [t.waIntro,"",...rows,files.length?"\n"+fill(t.waPhotos,files.length):""].join("\n").trim();
+}
+function renderDone(){
+  const t=T[lang];
+  $("done-p").textContent=t.doneP+(files.length?" "+fill(t.donePh,files.length):"");
+  $("wa-link").href=waUrl(waMessage());
+}
+function go(n){
+  step=n;showStep();
+  const top=F.getBoundingClientRect().top;
+  if(top<0||top>innerHeight*.6)F.scrollIntoView({behavior:matchMedia("(prefers-reduced-motion: reduce)").matches?"auto":"smooth",block:"start"});
+  const first=step<=4&&STEPS[step-1].querySelector("input:not([type=file]),select,textarea");
+  if(first&&step>1)first.focus({preventScroll:true});
+}
+F.addEventListener("submit",e=>{
+  e.preventDefault();if(!validate())return;
+  if(step===4&&$("v-web").value)return; /* honeypot */
+  go(step+1);
+});
+$("f-back").addEventListener("click",()=>go(Math.max(1,step-1)));
+F.querySelectorAll("[name=ptype]").forEach(r=>r.addEventListener("change",()=>{$("f-err").hidden=true;setTimeout(()=>{if(step===1)go(2)},260)}));
+F.addEventListener("input",e=>{e.target.removeAttribute("aria-invalid");if(!F.querySelector("[aria-invalid]"))$("f-err").hidden=true});
+$("f-restart").addEventListener("click",()=>{F.reset();files=[];drawThumbs();go(1)});
+
+/* Photo previews */
+function drawThumbs(){
+  const box=$("thumbs");box.innerHTML="";
+  files.forEach((f,i)=>{
+    const d=document.createElement("div"),img=document.createElement("img"),b=document.createElement("button");
+    img.src=f.url;img.alt=f.file.name;b.type="button";b.textContent="×";b.setAttribute("aria-label","Supprimer "+f.file.name);
+    b.onclick=()=>{URL.revokeObjectURL(f.url);files.splice(i,1);drawThumbs()};
+    d.append(img,b);box.append(d);
+  });
+}
+function addFiles(list){
+  [...list].filter(f=>f.type.startsWith("image/")).slice(0,12-files.length).forEach(file=>files.push({file,url:URL.createObjectURL(file)}));
+  drawThumbs();
+}
+$("v-files").addEventListener("change",e=>{addFiles(e.target.files);e.target.value=""});
+const drop=$("drop");
+["dragenter","dragover"].forEach(ev=>drop.addEventListener(ev,e=>{e.preventDefault();drop.classList.add("over")}));
+["dragleave","drop"].forEach(ev=>drop.addEventListener(ev,()=>drop.classList.remove("over")));
+drop.addEventListener("drop",e=>{e.preventDefault();addFiles(e.dataTransfer.files)});
 let start="fr";const h=location.hash.replace("#","");
 if(T[h])start=h;else{try{const s=localStorage.getItem("zam-lang");if(T[s])start=s}catch(e){}}
 setLang(start);
