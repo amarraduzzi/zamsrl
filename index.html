@@ -253,6 +253,20 @@ section,.funnel{scroll-margin-top:88px}
 @media (max-width:900px){.sell-grid{grid-template-columns:1fr}.sell-grid .steps{grid-template-columns:1fr 1fr}.sell-grid .steps li{grid-template-columns:1fr}.sell-grid .steps .n{grid-row:auto}}
 @media (max-width:520px){.opts,.grid2{grid-template-columns:1fr}.sell-grid .steps{grid-template-columns:1fr}}
 
+
+/* Mobile action bar */
+.mbar{display:none}
+@media (max-width:760px){
+  .mbar{display:grid;grid-template-columns:1fr 1fr;gap:10px;position:fixed;left:0;right:0;bottom:0;z-index:30;
+    padding:10px 16px calc(10px + env(safe-area-inset-bottom,0px));background:rgba(20,19,18,.94);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);border-top:1px solid var(--ink-line);
+    transition:transform .25s ease}
+  .mbar.off{transform:translateY(110%)}
+  .mbar a{display:flex;align-items:center;justify-content:center;gap:8px;font:600 15px/1 var(--f-body);text-decoration:none;border-radius:999px;padding:14px 12px}
+  .mbar svg{width:18px;height:18px;flex:none}
+  .mbar .call{background:var(--gold);color:var(--ink)}
+  .mbar .wa{background:#1f7a4d;color:#fff}
+  footer{padding-bottom:calc(36px + 72px + env(safe-area-inset-bottom,0px))}
+}
 footer{background:var(--ink);color:var(--on-ink-muted);font-size:14px;padding-block:36px}
 .foot{display:flex;flex-wrap:wrap;gap:16px 32px;align-items:center;justify-content:space-between}
 .foot .brand b{color:var(--on-ink)}
@@ -489,12 +503,17 @@ footer{background:var(--ink);color:var(--on-ink-muted);font-size:14px;padding-bl
   </div>
 </footer>
 
+<nav class="mbar" id="mbar" aria-label="Contact rapide">
+  <a class="call" href="tel:+32473924706"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1 1 .4 1.9.7 2.8a2 2 0 0 1-.5 2.1L8 9.9a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.4c.9.3 1.8.6 2.8.7a2 2 0 0 1 1.7 2z"/></svg><span data-t="mbCall"></span></a>
+  <a class="wa" id="mb-wa" href="https://wa.me/32473924706" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2zm0 18.2a8.2 8.2 0 0 1-4.2-1.2l-.3-.2-3 .8.8-2.9-.2-.3A8.2 8.2 0 1 1 12 20.2zm4.5-6.1c-.2-.1-1.5-.7-1.7-.8-.2-.1-.4-.1-.6.1l-.8 1c-.1.2-.3.2-.5.1a6.7 6.7 0 0 1-3.3-2.9c-.3-.4.2-.4.7-1.3.1-.2 0-.3 0-.4l-.8-1.8c-.2-.5-.4-.4-.6-.4h-.5a1 1 0 0 0-.7.3 3 3 0 0 0-.9 2.2 5.2 5.2 0 0 0 1.1 2.7 11.8 11.8 0 0 0 4.5 4c1.7.7 2.3.8 3.2.6.5-.1 1.5-.6 1.7-1.2.2-.6.2-1.1.2-1.2-.1-.1-.3-.2-.5-.3z"/></svg><span>WhatsApp</span></a>
+</nav>
+
 <script>
 const IMG={hero:"assets/img/detail.jpg",white:"assets/img/white.jpg",interior:"assets/img/interior.jpg"};
 const T={
 fr:{navHome:"Accueil",navProps:"Nos biens",navSell:"Vendre",navAbout:"À propos",navContact:"Contact",ctaTop:"Prendre contact",
 chip1:"Maisons",chip2:"Appartements",chip3:"Brabant wallon",
-h1a:"Achat des biens",h1b:"et vente au meilleur prix",lead:"Votre projet immobilier, notre priorité. Société immobilière établie à Genappe depuis 2002.",
+h1a:"Achat de biens",h1b:"et vente au meilleur prix",lead:"Votre projet immobilier, notre priorité. Société immobilière établie à Genappe depuis 2002.",
 since:"établie à Genappe",altHero:"Villa contemporaine au crépuscule",
 searchTitle:"Trouvez votre bien",fDeal:"Transaction",fType:"Type de bien",fCity:"Commune",phCity:"ex. Genappe, Nivelles",fBudget:"Budget max.",any:"Tous",sale:"À vendre",rent:"À louer",house:"Maison",apt:"Appartement",land:"Terrain",searchBtn:"Rechercher",filter:"Filtre :",all:"Tout",
 p1:"Achat",p1s:"de biens immobiliers",p2:"Vente",p2s:"au meilleur prix",p3:"Accompagnement",p3s:"de A à Z",p4:"Confiance",p4s:"et transparence",
@@ -519,7 +538,7 @@ q_photos:"Quelques photos du bien ?",vDrop:"Glissez vos photos ici ou cliquez po
 q_contact:"Où pouvons-nous vous joindre ?",vConsent:"J'accepte que ZAM SRL me contacte au sujet de mon bien. Mes données ne sont pas partagées.",
 back:"Retour",next:"Suivant",submit:"Recevoir mon offre",errReq:"Complétez les champs indiqués pour continuer.",errZip:"Le code postal belge compte 4 chiffres.",
 doneH:"Votre demande est prête",doneP:"Dernière étape : envoyez-la via WhatsApp. Nous vous répondons en principe dans les 24 heures ouvrables.",donePh:"Joignez vos {n} photo(s) dans la conversation WhatsApp.",doneWa:"Envoyer via WhatsApp",restart:"Nouvelle demande",
-waIntro:"Bonjour ZAM SRL, je souhaite recevoir une offre d'achat pour mon bien.",waPhotos:"{n} photo(s) suivent dans ce chat.",waContact:"Bonjour ZAM SRL,",cWa:"Ouvrir WhatsApp"},
+waIntro:"Bonjour ZAM SRL, je souhaite recevoir une offre d'achat pour mon bien.",waPhotos:"{n} photo(s) suivent dans ce chat.",waContact:"Bonjour ZAM SRL,",cWa:"Ouvrir WhatsApp",mbCall:"Appeler"},
 nl:{navHome:"Home",navProps:"Ons aanbod",navSell:"Verkopen",navAbout:"Over ons",navContact:"Contact",ctaTop:"Contact opnemen",
 chip1:"Woningen",chip2:"Appartementen",chip3:"Waals-Brabant",
 h1a:"Aankoop van panden",h1b:"en verkoop tegen de beste prijs",lead:"Uw vastgoedproject, onze prioriteit. Vastgoedvennootschap gevestigd in Genappe sinds 2002.",
@@ -547,7 +566,7 @@ q_photos:"Enkele foto's van het pand?",vDrop:"Sleep uw foto's hierheen of klik o
 q_contact:"Hoe kunnen we u bereiken?",vConsent:"Ik ga akkoord dat ZAM SRL mij contacteert over mijn pand. Mijn gegevens worden niet gedeeld.",
 back:"Terug",next:"Volgende",submit:"Mijn bod ontvangen",errReq:"Vul de aangeduide velden in om verder te gaan.",errZip:"Een Belgische postcode telt 4 cijfers.",
 doneH:"Uw aanvraag staat klaar",doneP:"Laatste stap: verstuur ze via WhatsApp. We antwoorden normaal binnen 24 werkuren.",donePh:"Voeg uw {n} foto('s) toe in het WhatsApp-gesprek.",doneWa:"Versturen via WhatsApp",restart:"Nieuwe aanvraag",
-waIntro:"Goedendag ZAM SRL, ik ontvang graag een aankoopbod voor mijn pand.",waPhotos:"{n} foto('s) volgen in deze chat.",waContact:"Goedendag ZAM SRL,",cWa:"WhatsApp openen"},
+waIntro:"Goedendag ZAM SRL, ik ontvang graag een aankoopbod voor mijn pand.",waPhotos:"{n} foto('s) volgen in deze chat.",waContact:"Goedendag ZAM SRL,",cWa:"WhatsApp openen",mbCall:"Bellen"},
 en:{navHome:"Home",navProps:"Properties",navSell:"Sell",navAbout:"About",navContact:"Contact",ctaTop:"Get in touch",
 chip1:"Houses",chip2:"Apartments",chip3:"Walloon Brabant",
 h1a:"We buy property",h1b:"and sell at the best price",lead:"Your property project, our priority. A real estate company based in Genappe since 2002.",
@@ -575,7 +594,7 @@ q_photos:"A few photos of the property?",vDrop:"Drop your photos here or click t
 q_contact:"How can we reach you?",vConsent:"I agree that ZAM SRL may contact me about my property. My details are not shared.",
 back:"Back",next:"Next",submit:"Get my offer",errReq:"Fill in the highlighted fields to continue.",errZip:"A Belgian postcode has 4 digits.",
 doneH:"Your request is ready",doneP:"Last step: send it through WhatsApp. We usually reply within 24 business hours.",donePh:"Attach your {n} photo(s) in the WhatsApp chat.",doneWa:"Send via WhatsApp",restart:"New request",
-waIntro:"Hello ZAM SRL, I would like a purchase offer for my property.",waPhotos:"{n} photo(s) follow in this chat.",waContact:"Hello ZAM SRL,",cWa:"Open WhatsApp"}
+waIntro:"Hello ZAM SRL, I would like a purchase offer for my property.",waPhotos:"{n} photo(s) follow in this chat.",waContact:"Hello ZAM SRL,",cWa:"Open WhatsApp",mbCall:"Call"}
 };
 const PROPS=[
  {img:"hero",deal:"sale",type:"house",city:"Genappe",price:785000,beds:4,baths:2,m2:245,name:{fr:"Villa contemporaine",nl:"Hedendaagse villa",en:"Contemporary villa"}},
@@ -601,6 +620,7 @@ function setLang(l){
   try{localStorage.setItem("zam-lang",lang)}catch(e){}
   render();
   if(typeof showStep==="function")showStep();
+  if(typeof mbSync==="function")mbSync();
 }
 document.querySelectorAll(".lang button").forEach(b=>b.addEventListener("click",()=>setLang(b.dataset.lang)));
 document.getElementById("search").addEventListener("submit",e=>{e.preventDefault();render();document.getElementById("biens").scrollIntoView()});
@@ -696,6 +716,12 @@ F.querySelectorAll("[name=ptype]").forEach(r=>r.addEventListener("change",()=>{$
 F.addEventListener("input",e=>{e.target.removeAttribute("aria-invalid");if(!F.querySelector("[aria-invalid]"))$("f-err").hidden=true});
 $("f-restart").addEventListener("click",()=>{F.reset();files=[];drawThumbs();go(1)});
 
+
+/* Mobile bar: hide while typing in a form or when the footer is in view */
+const mbar=$("mbar");
+function mbSync(){$("mb-wa").href=waUrl(T[lang].waContact+" ")}
+document.addEventListener("focusin",e=>{if(e.target.matches("input,textarea,select"))mbar.classList.add("off")});
+document.addEventListener("focusout",()=>setTimeout(()=>{if(!document.activeElement.matches("input,textarea,select"))mbar.classList.remove("off")},50));
 /* Photo previews */
 function drawThumbs(){
   const box=$("thumbs");box.innerHTML="";
