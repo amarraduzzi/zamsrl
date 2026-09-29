@@ -39,11 +39,11 @@ h1,h2,h3{font-family:var(--f-display);font-weight:600;line-height:1.1;text-wrap:
 /* Header */
 header{position:sticky;top:env(safe-area-inset-top,0px);z-index:20;background:var(--ink);color:var(--on-ink);border-bottom:1px solid var(--ink-line)}
 .nav{display:flex;align-items:center;gap:24px;min-height:72px}
-.brand{display:flex;align-items:center;gap:10px;text-decoration:none}
+.brand{display:flex;align-items:center;gap:10px;text-decoration:none;white-space:nowrap;flex:none}
 .brand svg{width:40px;height:32px}
 .brand b{font:700 20px/1 var(--f-logo);letter-spacing:.04em}
 .brand b span{color:var(--gold)}
-.links{display:flex;gap:28px;margin-left:auto;font-size:13px;font-weight:600;letter-spacing:.12em;text-transform:uppercase}
+.links{display:flex;gap:clamp(16px,2vw,28px);margin-left:auto;white-space:nowrap;font-size:13px;font-weight:600;letter-spacing:.12em;text-transform:uppercase}
 .links a{text-decoration:none;color:var(--on-ink-muted);padding-block:6px;border-bottom:2px solid transparent}
 .links a:hover,.links a.on{color:var(--gold);border-color:var(--gold)}
 .lang{display:flex;border:1px solid var(--ink-line);border-radius:999px;padding:3px}
@@ -51,30 +51,42 @@ header{position:sticky;top:env(safe-area-inset-top,0px);z-index:20;background:va
 .lang button[aria-pressed="true"]{background:var(--gold);color:var(--ink)}
 .cta-top{font-weight:600;font-size:14px;text-decoration:none;background:var(--gold);color:var(--ink);padding:10px 18px;border-radius:999px;white-space:nowrap}
 .cta-top:hover{background:var(--gold-soft)}
+@media (max-width:1100px){.cta-top{padding:10px 12px;font-size:0;gap:0}.cta-top svg{margin:0!important}}
 @media (max-width:900px){.links{display:none}.lang{margin-left:auto}.cta-top{display:none}}
 
-/* Hero */
-.hero{background:var(--ink);color:var(--on-ink);position:relative;overflow:hidden}
-.hero-grid{display:grid;grid-template-columns:minmax(0,1.05fr) minmax(0,1fr);align-items:stretch;min-height:520px}
-.hero-copy{padding-block:72px 150px;display:flex;flex-direction:column;gap:22px;position:relative;z-index:2}
+/* Hero: full-bleed photo, slow push-in, masked headline reveal */
+header{transition:background .35s ease,border-color .35s ease}
+header.over{background:transparent;border-color:transparent}
+.hero{position:relative;overflow:hidden;background:var(--ink);color:var(--on-ink);margin-top:-73px}
+.hero-bg{position:absolute;inset:0}
+.hero-bg img{width:100%;height:100%;object-fit:cover;object-position:68% 42%;transform-origin:70% 40%;animation:kb 18s cubic-bezier(.2,.6,.2,1) both}
+.hero-bg::after{content:"";position:absolute;inset:0;background:
+  linear-gradient(90deg,rgba(20,19,18,.94) 0%,rgba(20,19,18,.78) 34%,rgba(20,19,18,.2) 66%,rgba(20,19,18,.08) 100%),
+  linear-gradient(0deg,rgba(20,19,18,.85) 0%,rgba(20,19,18,0) 38%),
+  linear-gradient(180deg,rgba(20,19,18,.7) 0%,rgba(20,19,18,0) 24%)}
+@keyframes kb{from{transform:scale(1.14)}to{transform:scale(1)}}
+.hero-inner{position:relative;z-index:2;min-height:clamp(620px,90vh,880px);display:flex;align-items:center;padding-block:150px 190px}
+.hero-copy{display:flex;flex-direction:column;gap:22px;max-width:640px}
 .chips{display:flex;flex-wrap:wrap;gap:8px}
-.chip{font-size:13px;padding:6px 14px;border-radius:999px;border:1px solid var(--ink-line);color:var(--on-ink-muted)}
-.hero h1{font-size:clamp(40px,5.6vw,72px);letter-spacing:-.01em}
+.chip{font-size:13px;padding:6px 14px;border-radius:999px;border:1px solid rgba(243,239,230,.22);color:var(--on-ink);background:rgba(20,19,18,.35);backdrop-filter:blur(6px)}
+.hero h1{font-size:clamp(42px,6.2vw,84px);letter-spacing:-.015em;line-height:1.02}
+.hero h1 .ln{display:block;overflow:hidden;padding-bottom:.1em;margin-bottom:-.1em}
+.hero h1 .ln>*{display:inline-block;animation:rise 1.1s cubic-bezier(.2,.75,.15,1) both}
+.hero h1 .ln+.ln>*{animation-delay:.14s}
 .hero h1 em{font-style:normal;color:var(--gold)}
-.hero p.lead{font-size:clamp(17px,1.6vw,20px);color:var(--on-ink-muted);max-width:44ch;margin:0}
-.hero-photo{position:relative;margin-right:calc(-1*clamp(16px,4vw,40px))}
-.hero-photo img{width:100%;height:100%;object-fit:cover;min-height:360px}
-.hero-photo::before{content:"";position:absolute;inset:0;background:linear-gradient(90deg,var(--ink) 0%,rgba(20,19,18,.35) 30%,rgba(20,19,18,0) 60%);z-index:1}
-.since{position:absolute;right:24px;bottom:150px;z-index:2;background:rgba(20,19,18,.72);backdrop-filter:blur(6px);border:1px solid var(--ink-line);border-radius:var(--r);padding:14px 18px;display:grid;gap:2px}
+.hero p.lead{font-size:clamp(17px,1.6vw,20px);color:rgba(243,239,230,.82);max-width:44ch;margin:0}
+.hero .chips,.hero p.lead,.hero-cta{animation:fade .9s ease both .45s}
+.hero .chips{animation-delay:.05s}
+@keyframes rise{from{transform:translateY(108%)}to{transform:none}}
+@keyframes fade{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
+.since{position:absolute;right:clamp(16px,4vw,40px);bottom:150px;z-index:2;background:rgba(20,19,18,.55);backdrop-filter:blur(8px);border:1px solid rgba(243,239,230,.16);border-radius:var(--r);padding:14px 18px;display:grid;gap:2px;animation:fade .9s ease both .7s}
 .since b{font:600 28px/1 var(--f-display);color:var(--gold)}
 .since span{font-size:13px;color:var(--on-ink-muted)}
 @media (max-width:900px){
-  .hero-grid{grid-template-columns:1fr}
-  .hero-photo{order:-1;margin-inline:calc(-1*clamp(16px,4vw,40px));height:280px}
-  .hero-photo img{min-height:0}
-  .hero-photo::before{background:linear-gradient(0deg,var(--ink) 0%,rgba(20,19,18,0) 55%)}
-  .hero-copy{padding-block:8px 40px}
-  .since{bottom:24px;right:16px}
+  .hero-inner{min-height:0;align-items:flex-end;padding-block:clamp(300px,62vw,420px) 48px}
+  .hero-bg img{object-position:62% 30%}
+  .hero-bg::after{background:linear-gradient(0deg,rgba(20,19,18,1) 0%,rgba(20,19,18,.92) 38%,rgba(20,19,18,.35) 62%,rgba(20,19,18,.55) 100%)}
+  .since{top:96px;bottom:auto;right:16px}
 }
 
 /* Search panel */
@@ -138,7 +150,8 @@ section{padding-block:88px}
 .prop:hover figure img{transform:scale(1.04)}
 .tag{position:absolute;top:12px;left:12px;background:var(--card);color:var(--text);font-size:12px;font-weight:600;padding:5px 12px;border-radius:999px}
 .tag.demo{left:auto;right:12px;background:var(--ink);color:var(--gold)}
-.prop-body{padding:18px 20px 20px;display:grid;gap:8px}
+.prop-body{padding:18px 20px 20px;display:flex;flex-direction:column;gap:8px;flex:1}
+.prop-body .view{margin-top:auto}
 .meta{display:flex;flex-wrap:wrap;gap:14px;font-size:13px;color:var(--muted);font-variant-numeric:tabular-nums}
 .prop h3{font-size:22px}
 .loc{font-size:14px;color:var(--muted)}
@@ -271,6 +284,106 @@ section,.funnel{scroll-margin-top:88px}
   .mbar .wa:active{background:rgba(255,255,255,.08)}
   footer{padding-bottom:calc(36px + 80px + env(safe-area-inset-bottom,0px))}
 }
+/* Listing cards: clickable, PEB chip */
+.prop{position:relative;transition:box-shadow .3s,transform .3s}
+.prop:hover{box-shadow:0 22px 44px -26px rgba(20,19,18,.45);transform:translateY(-2px)}
+.prop-open{all:unset;position:absolute;inset:0;z-index:2;cursor:pointer;border-radius:var(--r)}
+.prop-open:focus-visible{outline:2px solid var(--gold);outline-offset:3px}
+.peb-chip{position:absolute;left:12px;bottom:12px;display:flex;align-items:center;gap:6px;background:var(--card);border-radius:8px;padding:4px 8px 4px 4px;font-size:11px;font-weight:600;letter-spacing:.06em;color:var(--muted)}
+.peb-chip b{display:grid;place-items:center;min-width:26px;height:22px;border-radius:5px;color:#fff;font-size:12px;letter-spacing:0;padding-inline:4px}
+.view{display:flex;align-items:center;justify-content:space-between;gap:12px;border-top:1px solid var(--line);margin-top:6px;padding-top:12px;font-size:14px;font-weight:600;color:var(--gold-deep)}
+.view i{font-style:normal;transition:transform .25s}
+.prop:hover .view i{transform:translateX(4px)}
+.ref{font-size:12px;color:var(--muted);font-variant-numeric:tabular-nums;letter-spacing:.04em}
+
+/* Estimator */
+.estim{background:var(--paper)}
+.est-grid{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:0;border-radius:20px;overflow:hidden;box-shadow:0 30px 60px -36px rgba(20,19,18,.5)}
+.est-form{background:var(--card);padding:clamp(22px,3.4vw,40px);display:grid;grid-template-columns:1fr;box-shadow:none;gap:24px;align-content:start;border-radius:0}
+.lbl{font-size:13px;font-weight:600}
+.seg{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px}
+.seg .opt span{padding:14px 12px;text-align:center;justify-items:center;font-size:14px;font-weight:600;gap:6px}
+.seg .opt svg{width:26px;height:26px}
+.range-row{display:flex;justify-content:space-between;align-items:baseline}
+.range-row output{font:600 22px/1 var(--f-display);color:var(--text);font-variant-numeric:tabular-nums}
+.field input[type=range],input[type=range]{-webkit-appearance:none;appearance:none;width:100%;height:28px;background:transparent;cursor:pointer;border:0;padding:0;border-radius:0}
+input[type=range]::-webkit-slider-runnable-track{height:4px;border-radius:4px;background:linear-gradient(90deg,var(--gold) var(--pct,30%),var(--line) var(--pct,30%))}
+input[type=range]::-moz-range-track{height:4px;border-radius:4px;background:var(--line)}
+input[type=range]::-moz-range-progress{height:4px;border-radius:4px;background:var(--gold)}
+input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:24px;height:24px;border-radius:50%;background:var(--card);border:2px solid var(--gold);margin-top:-10px;box-shadow:0 2px 8px rgba(20,19,18,.25)}
+input[type=range]::-moz-range-thumb{width:20px;height:20px;border-radius:50%;background:var(--card);border:2px solid var(--gold)}
+.est-out{background:var(--ink);color:var(--on-ink);padding:clamp(22px,3.4vw,40px);display:grid;gap:18px;align-content:start;position:relative}
+.est-out .eyebrow{color:var(--gold)}
+.est-price{font:600 clamp(34px,4.4vw,52px)/1.05 var(--f-display);font-variant-numeric:tabular-nums;letter-spacing:-.01em;display:flex;flex-wrap:wrap;gap:0 .3em;align-items:baseline}
+.est-price i{font-style:normal;color:var(--gold);font-size:.7em}
+.est-scale{position:relative;height:46px;margin-top:4px}
+.est-scale .track{position:absolute;left:0;right:0;top:14px;height:6px;border-radius:6px;background:var(--ink-line)}
+.est-scale .band{position:absolute;top:10px;height:14px;border-radius:7px;background:var(--gold);transition:left .45s cubic-bezier(.2,.7,.2,1),width .45s cubic-bezier(.2,.7,.2,1)}
+.est-scale .med{position:absolute;top:4px;width:2px;height:26px;background:var(--on-ink);opacity:.7;transform:translateX(-1px);transition:left .45s}
+.est-scale .med span{position:absolute;top:30px;left:50%;transform:translateX(-50%);white-space:nowrap;font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--on-ink-muted)}
+.est-facts{margin:0;display:grid;grid-template-columns:1fr 1fr;gap:1px;background:var(--ink-line);border:1px solid var(--ink-line);border-radius:12px;overflow:hidden}
+.est-facts div{background:var(--ink-2);padding:14px 16px}
+.est-facts dt{font-size:12px;color:var(--on-ink-muted)}
+.est-facts dd{margin:4px 0 0;font:600 18px/1.2 var(--f-body);font-variant-numeric:tabular-nums}
+.est-note{margin:0;font-size:14px;color:var(--on-ink-muted);max-width:52ch}
+.est-src{margin:0;font-size:12px;color:var(--on-ink-muted);opacity:.8}
+.est-price.pulse{animation:pulse .5s ease}
+@keyframes pulse{from{opacity:.35}to{opacity:1}}
+@media (max-width:900px){.est-grid{grid-template-columns:1fr}}
+@media (max-width:420px){.seg{grid-template-columns:1fr 1fr 1fr}.seg .opt span{padding:12px 6px;font-size:13px}}
+
+/* Property detail dialog */
+.pd{padding:0;border:0;border-radius:22px;width:min(1120px,calc(100vw - 32px));max-width:none;max-height:calc(100dvh - 32px);background:var(--card);color:var(--text);overflow:hidden;box-shadow:0 40px 90px -30px rgba(0,0,0,.6)}
+.pd::backdrop{background:rgba(20,19,18,.72);backdrop-filter:blur(6px)}
+.pd[open]{animation:pdIn .35s cubic-bezier(.2,.7,.2,1)}
+@keyframes pdIn{from{opacity:0;transform:translateY(18px) scale(.985)}to{opacity:1;transform:none}}
+.pd-shell{display:grid;grid-template-columns:minmax(0,1.3fr) minmax(0,1fr);height:min(760px,calc(100dvh - 32px))}
+.pd-gal{background:var(--ink);display:grid;grid-template-rows:minmax(0,1fr) auto;min-height:0;min-width:0}
+.pd-main{position:relative;min-height:0;overflow:hidden}
+.pd-main img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.pd-nav{all:unset;cursor:pointer;position:absolute;top:50%;transform:translateY(-50%);width:44px;height:44px;border-radius:50%;display:grid;place-items:center;background:rgba(20,19,18,.55);backdrop-filter:blur(6px);color:var(--on-ink);border:1px solid rgba(243,239,230,.2)}
+.pd-nav:hover{background:var(--gold);color:var(--ink)}
+.pd-nav svg{width:20px;height:20px}
+.pd-prev{left:14px}.pd-next{right:14px}
+.pd-count{position:absolute;left:14px;bottom:14px;font-size:12px;font-weight:600;background:rgba(20,19,18,.6);color:var(--on-ink);padding:5px 10px;border-radius:999px;font-variant-numeric:tabular-nums}
+.pd-thumbs{display:flex;gap:8px;padding:10px;overflow-x:auto}
+.pd-thumbs button{all:unset;cursor:pointer;flex:none;width:76px;height:56px;border-radius:8px;overflow:hidden;opacity:.55;outline:2px solid transparent;outline-offset:-2px;transition:opacity .2s}
+.pd-thumbs button[aria-current="true"]{opacity:1;outline-color:var(--gold)}
+.pd-thumbs img{width:100%;height:100%;object-fit:cover}
+.pd-info{padding:clamp(22px,3vw,34px);display:grid;grid-auto-rows:max-content;gap:16px;align-content:start;overflow-y:auto;min-height:0}
+.pd-x{all:unset;cursor:pointer;position:absolute;top:14px;right:14px;z-index:3;width:40px;height:40px;border-radius:50%;display:grid;place-items:center;background:var(--card);color:var(--text);box-shadow:0 4px 14px rgba(20,19,18,.25)}
+.pd-x svg{width:18px;height:18px}
+.pd-tags{display:flex;flex-wrap:wrap;gap:8px;align-items:center}
+.pd-tags .t{font-size:12px;font-weight:600;padding:5px 12px;border-radius:999px;background:var(--paper-2)}
+.pd-tags .t.demo{background:var(--ink);color:var(--gold)}
+.pd h2{font-size:clamp(28px,3vw,36px)}
+.pd .loc{margin-top:-8px}
+.pd-price{font:600 28px/1 var(--f-body);font-variant-numeric:tabular-nums}
+.pd-price small{font-size:14px;font-weight:500;color:var(--muted)}
+.pd-facts{list-style:none;margin:0;padding:0;display:flex;flex-wrap:wrap;border:1px solid var(--line);border-radius:12px;overflow:hidden}
+.pd-facts li{flex:1 1 30%;min-width:110px;padding:12px 14px;display:grid;gap:2px;border-right:1px solid var(--line);border-bottom:1px solid var(--line);margin:0 -1px -1px 0}
+.pd-facts span{font-size:12px;color:var(--muted)}
+.pd-facts b{font-size:16px;font-variant-numeric:tabular-nums}
+.peb{display:grid;gap:8px}
+.peb-scale{display:grid;grid-template-columns:repeat(9,minmax(0,1fr));gap:3px;align-items:end}
+.peb-scale span{height:22px;border-radius:4px;display:grid;place-items:center;color:#fff;font-size:11px;font-weight:700;opacity:.35}
+.peb-scale span.on{height:32px;opacity:1;font-size:14px;box-shadow:0 0 0 2px var(--card),0 0 0 4px var(--text)}
+.peb small{font-size:13px;color:var(--muted);font-variant-numeric:tabular-nums}
+.pd-desc{margin:0;color:var(--muted)}
+.pd-feat{list-style:none;margin:0;padding:0;display:flex;flex-wrap:wrap;gap:6px}
+.pd-feat li{font-size:13px;padding:6px 12px;border-radius:999px;border:1px solid var(--line)}
+.pd-cta{display:flex;flex-wrap:wrap;gap:10px;padding-top:4px}
+.btn.outline{background:transparent;color:var(--text);border:1px solid var(--line)}
+.btn.outline:hover{border-color:var(--text);background:transparent;color:var(--text)}
+body.lock{overflow:hidden}
+@media (max-width:860px){
+  .pd{width:100vw;max-height:100dvh;height:100dvh;border-radius:0;margin:0}
+  .pd-shell{grid-template-columns:1fr;grid-template-rows:auto auto;height:100dvh;overflow-y:auto}
+  .pd-info{overflow:visible;padding-bottom:calc(28px + env(safe-area-inset-bottom,0px))}
+  .pd-main{aspect-ratio:4/3}
+  .pd-x{top:calc(12px + env(safe-area-inset-top,0px))}
+}
+
 footer{background:var(--ink);color:var(--on-ink-muted);font-size:14px;padding-block:36px}
 .foot{display:flex;flex-wrap:wrap;gap:16px 32px;align-items:center;justify-content:space-between}
 .foot .brand b{color:var(--on-ink)}
@@ -288,8 +401,8 @@ footer{background:var(--ink);color:var(--on-ink-muted);font-size:14px;padding-bl
       <b>ZAM <span>SRL</span></b>
     </a>
     <nav class="links" aria-label="Menu">
-      <a href="#top" class="on" data-t="navHome"></a>
       <a href="#biens" data-t="navProps"></a>
+      <a href="#estimation" data-t="navEst"></a>
       <a href="#vendre" data-t="navSell"></a>
       <a href="#apropos" data-t="navAbout"></a>
       <a href="#contact" data-t="navContact"></a>
@@ -305,18 +418,16 @@ footer{background:var(--ink);color:var(--on-ink-muted);font-size:14px;padding-bl
 
 <main id="top">
   <div class="hero">
-    <div class="wrap hero-grid">
+    <div class="hero-bg"><img src="assets/img/hero.jpg" alt="" data-ta="altHero" fetchpriority="high"></div>
+    <div class="wrap hero-inner">
       <div class="hero-copy">
         <div class="chips"><span class="chip" data-t="chip1"></span><span class="chip" data-t="chip2"></span><span class="chip" data-t="chip3"></span></div>
-        <h1><span data-t="h1a"></span><br><em data-t="h1b"></em></h1>
+        <h1><span class="ln"><span data-t="h1a"></span></span><span class="ln"><em data-t="h1b"></em></span></h1>
         <p class="lead" data-t="lead"></p>
-        <div class="hero-cta"><a class="btn gold" href="#vendre" data-t="heroSell"></a><a class="btn line" href="#biens" data-t="heroBuy"></a></div>
-      </div>
-      <div class="hero-photo">
-        <img src="assets/img/hero.jpg" alt="" data-ta="altHero">
-        <div class="since"><b>2002</b><span data-t="since"></span></div>
+        <div class="hero-cta"><a class="btn gold" href="#estimation" data-t="heroSell"></a><a class="btn line" href="#biens" data-t="heroBuy"></a></div>
       </div>
     </div>
+    <div class="since"><b>2002</b><span data-t="since"></span></div>
   </div>
 
   <div class="wrap">
@@ -376,6 +487,49 @@ footer{background:var(--ink);color:var(--on-ink-muted);font-size:14px;padding-bl
         <p data-t="listP"></p>
       </div>
       <div class="grid3" id="grid" aria-live="polite"></div>
+    </div>
+  </section>
+
+  <section class="estim" id="estimation">
+    <div class="wrap">
+      <div class="sec-head">
+        <div><span class="eyebrow" data-t="estEyebrow"></span><h2 data-t="estH"></h2></div>
+        <p data-t="estP"></p>
+      </div>
+      <div class="est-grid">
+        <form class="est-form" id="est" novalidate>
+          <div class="field"><span class="lbl" data-t="fType"></span>
+            <div class="seg" role="radiogroup">
+              <label class="opt"><input type="radio" name="etype" value="house" id="et-house" checked><span><svg viewBox="0 0 30 30"><path d="M4 14 L15 5 L26 14 M7 12 V25 H23 V12 M12 25 V18 H18 V25"/></svg><b data-t="t_house"></b></span></label>
+              <label class="opt"><input type="radio" name="etype" value="villa" id="et-villa"><span><svg viewBox="0 0 30 30"><path d="M2 15 L11 8 L20 15 M20 15 L26 11 L29 13 M5 13 V25 H27 V13 M9 25 V19 H14 V25 M18 18 H23 V22 H18 Z"/></svg><b data-t="t_villa"></b></span></label>
+              <label class="opt"><input type="radio" name="etype" value="apt" id="et-apt"><span><svg viewBox="0 0 30 30"><path d="M7 4 H23 V26 H7 Z M11 8 H13 M17 8 H19 M11 12 H13 M17 12 H19 M11 16 H13 M17 16 H19 M13 26 V21 H17 V26"/></svg><b data-t="apt"></b></span></label>
+            </div>
+          </div>
+          <div class="field"><label for="e-city" data-t="fCity"></label><select id="e-city"></select></div>
+          <div class="field"><div class="range-row"><label for="e-m2" data-t="vM2"></label><output id="e-m2-out" for="e-m2"></output></div>
+            <input type="range" id="e-m2" min="40" max="400" step="5" value="160"></div>
+          <div class="field"><span class="lbl" data-t="vState"></span>
+            <div class="pills" role="radiogroup">
+              <label class="opt"><input type="radio" name="estate" value="new" id="es-new"><span data-t="st_new"></span></label>
+              <label class="opt"><input type="radio" name="estate" value="good" id="es-good" checked><span data-t="st_good"></span></label>
+              <label class="opt"><input type="radio" name="estate" value="refresh" id="es-ref"><span data-t="st_refresh"></span></label>
+              <label class="opt"><input type="radio" name="estate" value="renovate" id="es-ren"><span data-t="st_renovate"></span></label>
+            </div>
+          </div>
+        </form>
+        <div class="est-out" aria-live="polite">
+          <span class="eyebrow" data-t="estRange"></span>
+          <div class="est-price" id="e-price"><span id="e-low"></span><i data-t="estTo">à</i><span id="e-high"></span></div>
+          <div class="est-scale" aria-hidden="true"><div class="track"></div><div class="band" id="e-band"></div><div class="med" id="e-medmark"><span data-t="estMedShort"></span></div></div>
+          <dl class="est-facts">
+            <div><dt data-t="estM2"></dt><dd id="e-pm2"></dd></div>
+            <div><dt data-t="estMed"></dt><dd id="e-med"></dd></div>
+          </dl>
+          <p class="est-note" data-t="estNote"></p>
+          <div><button type="button" class="btn gold" id="e-go" data-t="estCta"></button></div>
+          <p class="est-src" data-t="estSrc"></p>
+        </div>
+      </div>
     </div>
   </section>
 
@@ -507,6 +661,32 @@ footer{background:var(--ink);color:var(--on-ink-muted);font-size:14px;padding-bl
   </div>
 </footer>
 
+<dialog class="pd" id="pd" aria-labelledby="pd-title">
+  <button type="button" class="pd-x" id="pd-x" data-ta="close"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 6l12 12M18 6L6 18"/></svg></button>
+  <div class="pd-shell">
+    <div class="pd-gal">
+      <div class="pd-main">
+        <img id="pd-img" alt="">
+        <button type="button" class="pd-nav pd-prev" id="pd-prev" data-ta="prev"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 5l-7 7 7 7"/></svg></button>
+        <button type="button" class="pd-nav pd-next" id="pd-next" data-ta="next2"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 5l7 7-7 7"/></svg></button>
+        <span class="pd-count" id="pd-count"></span>
+      </div>
+      <div class="pd-thumbs" id="pd-thumbs"></div>
+    </div>
+    <div class="pd-info">
+      <div class="pd-tags"><span class="t" id="pd-deal"></span><span class="t demo" data-t="demo"></span><span class="ref" id="pd-ref"></span></div>
+      <h2 id="pd-title"></h2>
+      <p class="loc" id="pd-loc"></p>
+      <div class="pd-price" id="pd-price"></div>
+      <ul class="pd-facts" id="pd-facts"></ul>
+      <div class="peb"><span class="lbl" data-t="pebLbl"></span><div class="peb-scale" id="pd-peb"></div><small id="pd-kwh"></small></div>
+      <p class="pd-desc" id="pd-desc"></p>
+      <ul class="pd-feat" id="pd-feat"></ul>
+      <div class="pd-cta"><a class="btn gold" id="pd-visit" target="_blank" rel="noopener" data-t="pdVisit"></a><a class="btn outline" href="tel:+32473924706" data-t="mbCall"></a></div>
+    </div>
+  </div>
+</dialog>
+
 <nav class="mbar" id="mbar" aria-label="Contact rapide">
   <div class="pill">
     <a class="call" href="tel:+32473924706"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1 1 .4 1.9.7 2.8a2 2 0 0 1-.5 2.1L8 9.9a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.4c.9.3 1.8.6 2.8.7a2 2 0 0 1 1.7 2z"/></svg><span data-t="mbCall"></span></a>
@@ -515,7 +695,7 @@ footer{background:var(--ink);color:var(--on-ink-muted);font-size:14px;padding-bl
 </nav>
 
 <script>
-const IMG={hero:"assets/img/detail.jpg",white:"assets/img/white.jpg",interior:"assets/img/interior.jpg"};
+const IMG={villa:"assets/img/hero.jpg",villaGround:"assets/img/villa-ground.jpg",detail:"assets/img/detail.jpg",white:"assets/img/white.jpg",houseGarden:"assets/img/house-garden.jpg",interior:"assets/img/interior.jpg",aptM:"assets/img/apt-m.jpg",villaM:"assets/img/villa-m.jpg",houseM:"assets/img/house-m.jpg"};
 const T={
 fr:{navHome:"Accueil",navProps:"Nos biens",navSell:"Vendre",navAbout:"À propos",navContact:"Contact",ctaTop:"Prendre contact",
 chip1:"Maisons",chip2:"Appartements",chip3:"Brabant wallon",
@@ -537,14 +717,20 @@ q2:"L'offre d'achat est-elle gratuite ?",a2:"Oui. La visite et l'offre sont grat
 q3:"Combien de temps prend une vente ?",a3:"Après acceptation de l'offre, le compromis peut être signé rapidement. L'acte authentique suit dans le délai légal habituel, chez le notaire.",
 q4:"Proposez-vous des biens en location ?",a4:"Oui, une partie de notre portefeuille est proposée en location. Consultez nos biens ou contactez-nous pour les disponibilités.",
 contactH:"Parlons de votre projet",contactP:"Achat, vente ou location : laissez-nous un message et nous vous recontactons.",dAddr:"Adresse",dPhone:"Téléphone",dVat:"Numéro d'entreprise",cName:"Nom",cSubj:"Sujet",o1:"Je souhaite vendre mon bien",o2:"Je cherche un bien à acheter",o3:"Je cherche un bien à louer",cSend:"Envoyer le message",cOk:"Votre message est prêt. Dernière étape : envoyez-le via WhatsApp.",founded:"Fondée en 2002",
-heroSell:"Vendre mon bien",heroBuy:"Voir nos biens",
+heroBuy:"Voir nos biens",
 fEyebrow:"Offre d'achat gratuite",stepOf:"Étape {n} sur 4",q_type:"Quel type de bien souhaitez-vous vendre ?",building:"Immeuble de rapport",
 q_where:"Où se trouve le bien ?",vZip:"Code postal",vM2:"Surface habitable (m²)",vBeds:"Chambres",vState:"État du bien",st_new:"Neuf ou rénové",st_good:"Bon état",st_refresh:"À rafraîchir",st_renovate:"À rénover",
 q_photos:"Quelques photos du bien ?",vDrop:"Glissez vos photos ici ou cliquez pour choisir (facultatif)",vNote:"Informations utiles",phNote:"Jardin, garage, PEB, locataire en place…",
 q_contact:"Où pouvons-nous vous joindre ?",vConsent:"J'accepte que ZAM SRL me contacte au sujet de mon bien. Mes données ne sont pas partagées.",
 back:"Retour",next:"Suivant",submit:"Recevoir mon offre",errReq:"Complétez les champs indiqués pour continuer.",errZip:"Le code postal belge compte 4 chiffres.",
 doneH:"Votre demande est prête",doneP:"Dernière étape : envoyez-la via WhatsApp. Nous vous répondons en principe dans les 24 heures ouvrables.",donePh:"Joignez vos {n} photo(s) dans la conversation WhatsApp.",doneWa:"Envoyer via WhatsApp",restart:"Nouvelle demande",
-waIntro:"Bonjour ZAM SRL, je souhaite recevoir une offre d'achat pour mon bien.",waPhotos:"{n} photo(s) suivent dans ce chat.",waContact:"Bonjour ZAM SRL,",cWa:"Ouvrir WhatsApp",mbCall:"Appeler"},
+waIntro:"Bonjour ZAM SRL, je souhaite recevoir une offre d'achat pour mon bien.",waPhotos:"{n} photo(s) suivent dans ce chat.",waContact:"Bonjour ZAM SRL,",cWa:"Ouvrir WhatsApp",mbCall:"Appeler",navEst:"Estimation",heroSell:"Estimer mon bien",
+estEyebrow:"Estimation en ligne",estH:"Combien vaut votre bien ?",estP:"Une première fourchette en 20 secondes, basée sur les prix de vente réels de votre commune. Gratuit et sans inscription.",
+t_house:"Maison",t_villa:"Villa 4 façades",estRange:"Fourchette indicative",estMedShort:"Médiane commune",estM2:"Prix au m² estimé",estMed:"Prix médian dans la commune",
+estNote:"Une estimation en ligne reste indicative. Après une visite gratuite, ZAM SRL vous remet une offre d'achat ferme.",estCta:"Recevoir une offre ferme",
+estSrc:"Source : prix médians de vente 2025 par commune, Statbel et Fednot. Autres communes : médiane du Brabant wallon.",otherCity:"Autre commune du Brabant wallon",estTo:"à",estLine:"Estimation en ligne",
+view:"Voir le bien",pdVisit:"Planifier une visite",pebLbl:"Certificat PEB",f_beds:"Chambres",f_baths:"Salles de bain",f_m2:"Surface habitable",f_land:"Terrain",f_year:"Construction",f_ref:"Référence",ares:"ares",
+close:"Fermer",prev:"Photo précédente",next2:"Photo suivante",waVisit:"Bonjour ZAM SRL, je souhaite planifier une visite pour :",photoOf:"Photo {n}"},
 nl:{navHome:"Home",navProps:"Ons aanbod",navSell:"Verkopen",navAbout:"Over ons",navContact:"Contact",ctaTop:"Contact opnemen",
 chip1:"Woningen",chip2:"Appartementen",chip3:"Waals-Brabant",
 h1a:"Aankoop van panden",h1b:"en verkoop tegen de beste prijs",lead:"Uw vastgoedproject, onze prioriteit. Vastgoedvennootschap gevestigd in Genappe sinds 2002.",
@@ -565,14 +751,20 @@ q2:"Is het aankoopbod gratis?",a2:"Ja. Het bezoek en het bod zijn gratis en vrij
 q3:"Hoe lang duurt een verkoop?",a3:"Na aanvaarding van het bod kan de compromis snel getekend worden. De authentieke akte volgt binnen de gebruikelijke wettelijke termijn bij de notaris.",
 q4:"Verhuren jullie ook panden?",a4:"Ja, een deel van onze portefeuille wordt verhuurd. Bekijk ons aanbod of neem contact op voor beschikbaarheid.",
 contactH:"Laten we over uw project praten",contactP:"Kopen, verkopen of huren: laat een bericht achter en we nemen contact met u op.",dAddr:"Adres",dPhone:"Telefoon",dVat:"Ondernemingsnummer",cName:"Naam",cSubj:"Onderwerp",o1:"Ik wil mijn pand verkopen",o2:"Ik zoek een pand om te kopen",o3:"Ik zoek een pand om te huren",cSend:"Bericht versturen",cOk:"Uw bericht staat klaar. Laatste stap: verstuur het via WhatsApp.",founded:"Opgericht in 2002",
-heroSell:"Mijn pand verkopen",heroBuy:"Bekijk ons aanbod",
+heroBuy:"Bekijk ons aanbod",
 fEyebrow:"Gratis aankoopbod",stepOf:"Stap {n} van 4",q_type:"Welk type pand wilt u verkopen?",building:"Opbrengsteigendom",
 q_where:"Waar ligt het pand?",vZip:"Postcode",vM2:"Bewoonbare oppervlakte (m²)",vBeds:"Slaapkamers",vState:"Staat van het pand",st_new:"Nieuw of gerenoveerd",st_good:"Goede staat",st_refresh:"Op te frissen",st_renovate:"Te renoveren",
 q_photos:"Enkele foto's van het pand?",vDrop:"Sleep uw foto's hierheen of klik om te kiezen (optioneel)",vNote:"Nuttige informatie",phNote:"Tuin, garage, EPB, huurder aanwezig…",
 q_contact:"Hoe kunnen we u bereiken?",vConsent:"Ik ga akkoord dat ZAM SRL mij contacteert over mijn pand. Mijn gegevens worden niet gedeeld.",
 back:"Terug",next:"Volgende",submit:"Mijn bod ontvangen",errReq:"Vul de aangeduide velden in om verder te gaan.",errZip:"Een Belgische postcode telt 4 cijfers.",
 doneH:"Uw aanvraag staat klaar",doneP:"Laatste stap: verstuur ze via WhatsApp. We antwoorden normaal binnen 24 werkuren.",donePh:"Voeg uw {n} foto('s) toe in het WhatsApp-gesprek.",doneWa:"Versturen via WhatsApp",restart:"Nieuwe aanvraag",
-waIntro:"Goedendag ZAM SRL, ik ontvang graag een aankoopbod voor mijn pand.",waPhotos:"{n} foto('s) volgen in deze chat.",waContact:"Goedendag ZAM SRL,",cWa:"WhatsApp openen",mbCall:"Bellen"},
+waIntro:"Goedendag ZAM SRL, ik ontvang graag een aankoopbod voor mijn pand.",waPhotos:"{n} foto('s) volgen in deze chat.",waContact:"Goedendag ZAM SRL,",cWa:"WhatsApp openen",mbCall:"Bellen",navEst:"Schatting",heroSell:"Mijn pand schatten",
+estEyebrow:"Online schatting",estH:"Hoeveel is uw pand waard?",estP:"Een eerste prijsvork in 20 seconden, gebaseerd op echte verkoopprijzen in uw gemeente. Gratis en zonder registratie.",
+t_house:"Woning",t_villa:"Villa open bebouwing",estRange:"Indicatieve prijsvork",estMedShort:"Mediaan gemeente",estM2:"Geschatte prijs per m²",estMed:"Mediaanprijs in de gemeente",
+estNote:"Een online schatting blijft indicatief. Na een gratis bezoek doet ZAM SRL u een vast aankoopbod.",estCta:"Vast bod ontvangen",
+estSrc:"Bron: mediane verkoopprijzen 2025 per gemeente, Statbel en Fednot. Andere gemeenten: mediaan van Waals-Brabant.",otherCity:"Andere gemeente in Waals-Brabant",estTo:"tot",estLine:"Online schatting",
+view:"Bekijk het pand",pdVisit:"Bezoek plannen",pebLbl:"EPB-certificaat",f_beds:"Slaapkamers",f_baths:"Badkamers",f_m2:"Bewoonbare opp.",f_land:"Grond",f_year:"Bouwjaar",f_ref:"Referentie",ares:"are",
+close:"Sluiten",prev:"Vorige foto",next2:"Volgende foto",waVisit:"Goedendag ZAM SRL, ik wil graag een bezoek plannen voor:",photoOf:"Foto {n}"},
 en:{navHome:"Home",navProps:"Properties",navSell:"Sell",navAbout:"About",navContact:"Contact",ctaTop:"Get in touch",
 chip1:"Houses",chip2:"Apartments",chip3:"Walloon Brabant",
 h1a:"We buy property",h1b:"and sell at the best price",lead:"Your property project, our priority. A real estate company based in Genappe since 2002.",
@@ -593,20 +785,49 @@ q2:"Is the purchase offer free?",a2:"Yes. The viewing and the offer are free and
 q3:"How long does a sale take?",a3:"Once the offer is accepted, the sales agreement can be signed quickly. The final deed follows within the usual legal period at the notary.",
 q4:"Do you offer properties for rent?",a4:"Yes, part of our portfolio is available to rent. Browse our properties or contact us for availability.",
 contactH:"Let's talk about your project",contactP:"Buying, selling or renting: leave us a message and we'll get back to you.",dAddr:"Address",dPhone:"Phone",dVat:"Company number",cName:"Name",cSubj:"Subject",o1:"I want to sell my property",o2:"I'm looking to buy",o3:"I'm looking to rent",cSend:"Send message",cOk:"Your message is ready. Last step: send it through WhatsApp.",founded:"Founded in 2002",
-heroSell:"Sell my property",heroBuy:"View properties",
+heroBuy:"View properties",
 fEyebrow:"Free purchase offer",stepOf:"Step {n} of 4",q_type:"What type of property are you selling?",building:"Investment building",
 q_where:"Where is the property?",vZip:"Postcode",vM2:"Living area (m²)",vBeds:"Bedrooms",vState:"Condition",st_new:"New or renovated",st_good:"Good condition",st_refresh:"Needs a refresh",st_renovate:"Needs renovation",
 q_photos:"A few photos of the property?",vDrop:"Drop your photos here or click to choose (optional)",vNote:"Useful details",phNote:"Garden, garage, EPC, sitting tenant…",
 q_contact:"How can we reach you?",vConsent:"I agree that ZAM SRL may contact me about my property. My details are not shared.",
 back:"Back",next:"Next",submit:"Get my offer",errReq:"Fill in the highlighted fields to continue.",errZip:"A Belgian postcode has 4 digits.",
 doneH:"Your request is ready",doneP:"Last step: send it through WhatsApp. We usually reply within 24 business hours.",donePh:"Attach your {n} photo(s) in the WhatsApp chat.",doneWa:"Send via WhatsApp",restart:"New request",
-waIntro:"Hello ZAM SRL, I would like a purchase offer for my property.",waPhotos:"{n} photo(s) follow in this chat.",waContact:"Hello ZAM SRL,",cWa:"Open WhatsApp",mbCall:"Call"}
+waIntro:"Hello ZAM SRL, I would like a purchase offer for my property.",waPhotos:"{n} photo(s) follow in this chat.",waContact:"Hello ZAM SRL,",cWa:"Open WhatsApp",mbCall:"Call",navEst:"Valuation",heroSell:"Value my property",
+estEyebrow:"Online valuation",estH:"What is your property worth?",estP:"A first price range in 20 seconds, based on real sale prices in your town. Free, no sign-up.",
+t_house:"House",t_villa:"Detached villa",estRange:"Indicative range",estMedShort:"Town median",estM2:"Estimated price per m²",estMed:"Median price in town",
+estNote:"An online valuation is only indicative. After a free viewing, ZAM SRL gives you a firm purchase offer.",estCta:"Get a firm offer",
+estSrc:"Source: 2025 median sale prices by town, Statbel and Fednot. Other towns: Walloon Brabant median.",otherCity:"Other town in Walloon Brabant",estTo:"to",estLine:"Online valuation",
+view:"View property",pdVisit:"Book a viewing",pebLbl:"EPC certificate",f_beds:"Bedrooms",f_baths:"Bathrooms",f_m2:"Living area",f_land:"Plot",f_year:"Built",f_ref:"Reference",ares:"ares",
+close:"Close",prev:"Previous photo",next2:"Next photo",waVisit:"Hello ZAM SRL, I would like to book a viewing for:",photoOf:"Photo {n}"}
 };
 const PROPS=[
- {img:"hero",deal:"sale",type:"house",city:"Genappe",price:785000,beds:4,baths:2,m2:245,name:{fr:"Villa contemporaine",nl:"Hedendaagse villa",en:"Contemporary villa"}},
- {img:"white",deal:"sale",type:"house",city:"Nivelles",price:465000,beds:3,baths:1,m2:160,name:{fr:"Maison familiale avec jardin",nl:"Gezinswoning met tuin",en:"Family house with garden"}},
- {img:"interior",deal:"rent",type:"apt",city:"Waterloo",price:1350,beds:2,baths:1,m2:95,name:{fr:"Appartement lumineux",nl:"Licht appartement",en:"Bright apartment"}}
+ {id:101,img:["villa","villaGround","detail"],deal:"sale",type:"house",city:"Genappe",zip:"1470",price:785000,beds:4,baths:2,m2:245,land:12.5,year:2021,peb:"A",kwh:72,
+  name:{fr:"Villa contemporaine",nl:"Hedendaagse villa",en:"Contemporary villa"},
+  desc:{fr:"Villa basse énergie sur un terrain paysager au calme, à cinq minutes du centre de Genappe. Grandes baies vitrées plein sud, séjour traversant et suite parentale à l'étage.",nl:"Energiezuinige villa op een rustig aangelegd perceel, vijf minuten van het centrum van Genappe. Grote glaspartijen op het zuiden, doorlopende leefruimte en ouderlijke suite boven.",en:"Low-energy villa on a quiet landscaped plot, five minutes from central Genappe. Large south-facing glazing, through living room and a master suite upstairs."},
+  feat:{fr:["Terrasse plein sud","Garage 2 voitures","Pompe à chaleur","Panneaux solaires","Jardin paysager"],nl:["Terras op het zuiden","Garage voor 2 wagens","Warmtepomp","Zonnepanelen","Aangelegde tuin"],en:["South-facing terrace","Double garage","Heat pump","Solar panels","Landscaped garden"]}},
+ {id:102,img:["white","houseGarden"],deal:"sale",type:"house",city:"Nivelles",zip:"1400",price:465000,beds:3,baths:1,m2:160,land:5.2,year:1998,peb:"C",kwh:185,
+  name:{fr:"Maison familiale avec jardin",nl:"Gezinswoning met tuin",en:"Family house with garden"},
+  desc:{fr:"Maison 4 façades lumineuse dans un quartier résidentiel, proche des écoles et de la gare de Nivelles. Jardin clos et grenier aménageable.",nl:"Lichte open bebouwing in een residentiële wijk, dicht bij scholen en het station van Nijvel. Omheinde tuin en inrichtbare zolder.",en:"Bright detached house in a residential area, close to schools and Nivelles station. Enclosed garden and convertible attic."},
+  feat:{fr:["Jardin clos","Garage","Grenier aménageable","Proche gare"],nl:["Omheinde tuin","Garage","Inrichtbare zolder","Dicht bij station"],en:["Enclosed garden","Garage","Convertible attic","Near station"]}},
+ {id:103,img:["interior"],deal:"rent",type:"apt",city:"Waterloo",zip:"1410",price:1350,beds:2,baths:1,m2:95,land:null,year:2019,peb:"B",kwh:108,
+  name:{fr:"Appartement lumineux",nl:"Licht appartement",en:"Bright apartment"},
+  desc:{fr:"Appartement récent au deuxième étage avec ascenseur, séjour ouvert sur une terrasse de 12 m². Libre de suite.",nl:"Recent appartement op de tweede verdieping met lift, open leefruimte met terras van 12 m². Onmiddellijk vrij.",en:"Recent second-floor apartment with lift, open living room onto a 12 m² terrace. Available now."},
+  feat:{fr:["Terrasse","Ascenseur","Cave","Parking"],nl:["Terras","Lift","Kelder","Parking"],en:["Terrace","Lift","Cellar","Parking"]}},
+ {id:104,img:["aptM"],deal:"sale",type:"apt",city:"Wavre",zip:"1300",price:289000,beds:2,baths:1,m2:98,land:null,year:2012,peb:"B",kwh:112,
+  name:{fr:"Appartement 2 chambres avec terrasse",nl:"Appartement met 2 slaapkamers en terras",en:"2-bed apartment with terrace"},
+  desc:{fr:"Appartement soigné à distance à pied du centre de Wavre et de la E411. Idéal premier achat ou investissement locatif.",nl:"Verzorgd appartement op wandelafstand van het centrum van Waver en de E411. Ideaal als eerste woning of investering.",en:"Well-kept apartment within walking distance of central Wavre and the E411. Ideal first home or rental investment."},
+  feat:{fr:["Terrasse","Cave","Emplacement de parking"],nl:["Terras","Kelder","Parkeerplaats"],en:["Terrace","Cellar","Parking space"]}},
+ {id:105,img:["villaM"],deal:"sale",type:"house",city:"Lasne",zip:"1380",price:1095000,beds:5,baths:3,m2:310,land:21,year:2016,peb:"A+",kwh:48,
+  name:{fr:"Villa d'architecte",nl:"Architectenvilla",en:"Architect-designed villa"},
+  desc:{fr:"Villa d'architecte sur plus de 20 ares arborés, dans l'un des quartiers les plus recherchés de Lasne. Volumes généreux et finitions haut de gamme.",nl:"Architectenvilla op ruim 20 are met bomen, in een van de meest gegeerde wijken van Lasne. Royale volumes en hoogwaardige afwerking.",en:"Architect-designed villa on over 20 ares of wooded grounds, in one of Lasne's most sought-after areas. Generous volumes and high-end finishes."},
+  feat:{fr:["Terrain arboré","Triple garage","Domotique","Pompe à chaleur"],nl:["Grond met bomen","Garage voor 3 wagens","Domotica","Warmtepomp"],en:["Wooded grounds","Triple garage","Home automation","Heat pump"]}},
+ {id:106,img:["houseM"],deal:"sale",type:"house",city:"Braine-l'Alleud",zip:"1420",price:435000,beds:3,baths:2,m2:175,land:4.8,year:2005,peb:"C",kwh:162,
+  name:{fr:"Maison 3 façades",nl:"Halfopen woning",en:"Semi-detached house"},
+  desc:{fr:"Maison 3 façades bien entretenue dans un quartier calme, proche du Ring et des commerces. Jardin orienté ouest.",nl:"Goed onderhouden halfopen woning in een rustige wijk, dicht bij de Ring en winkels. Tuin op het westen.",en:"Well-maintained semi-detached house in a quiet area, close to the Ring and shops. West-facing garden."},
+  feat:{fr:["Jardin orienté ouest","Garage","Buanderie"],nl:["Tuin op het westen","Garage","Wasplaats"],en:["West-facing garden","Garage","Utility room"]}}
 ];
+const PEB=["A++","A+","A","B","C","D","E","F","G"],PEBC=["#0f7a3c","#2f9a45","#5fb046","#a6c739","#e8c41c","#f5a623","#ec7a24","#e0472a","#c62828"];
+const pebColor=c=>PEBC[PEB.indexOf(c)]||"#999";
 let lang="fr";
 const fmt=n=>new Intl.NumberFormat(lang==="en"?"en-GB":lang==="nl"?"nl-BE":"fr-BE").format(n)+" €";
 function render(){
@@ -614,19 +835,21 @@ function render(){
   city=document.getElementById("f-city").value.trim().toLowerCase(),bud=+document.getElementById("f-budget").value||0;
   const list=PROPS.filter(p=>(!deal||p.deal===deal)&&(!type||p.type===type)&&(!city||p.city.toLowerCase().includes(city))&&(!bud||p.deal==="rent"||p.price<=bud));
   const g=document.getElementById("grid");
-  g.innerHTML=list.length?list.map(p=>`<article class="prop"><figure><img src="${IMG[p.img]}" alt="${p.name[lang]}"><span class="tag">${t[p.deal]}</span><span class="tag demo">${t.demo}</span></figure><div class="prop-body"><div class="meta"><span>${p.beds} ${t.beds}</span><span>${p.baths} ${t.baths}</span><span>${p.m2} m²</span></div><h3>${p.name[lang]}</h3><div class="loc">${p.city}, Brabant wallon</div><div class="price">${fmt(p.price)}${p.deal==="rent"?` <small>${t.perMonth}</small>`:""}</div></div></article>`).join(""):`<p class="empty">${t.none}</p>`;
+  g.innerHTML=list.length?list.map(p=>`<article class="prop"><figure><img src="${IMG[p.img[0]]}" alt="${p.name[lang]}" loading="lazy"><span class="tag">${t[p.deal]}</span><span class="tag demo">${t.demo}</span><span class="peb-chip">PEB <b style="background:${pebColor(p.peb)}">${p.peb}</b></span></figure><div class="prop-body"><div class="meta"><span>${p.beds} ${t.beds}</span><span>${p.baths} ${t.baths}</span><span>${p.m2} m²</span></div><h3>${p.name[lang]}</h3><div class="loc">${p.city}, Brabant wallon</div><div class="price">${fmt(p.price)}${p.deal==="rent"?` <small>${t.perMonth}</small>`:""}</div><div class="view"><span>${t.view}</span><i aria-hidden="true">→</i></div></div><button type="button" class="prop-open" data-id="${p.id}" aria-label="${t.view}: ${p.name[lang]}, ${p.city}"></button></article>`).join(""):`<p class="empty">${t.none}</p>`;
 }
 function setLang(l){
   lang=T[l]?l:"fr";const t=T[lang];
   document.documentElement.lang=lang;
   document.querySelectorAll("[data-t]").forEach(e=>{const v=t[e.dataset.t];if(v!=null)e.textContent=v});
   document.querySelectorAll("[data-tp]").forEach(e=>e.placeholder=t[e.dataset.tp]);
-  document.querySelectorAll("[data-ta]").forEach(e=>e.alt=t[e.dataset.ta]);
+  document.querySelectorAll("[data-ta]").forEach(e=>{const v=t[e.dataset.ta];if(e.tagName==="IMG")e.alt=v;else{e.setAttribute("aria-label",v);e.title=v}});
   document.querySelectorAll(".lang button").forEach(b=>b.setAttribute("aria-pressed",b.dataset.lang===lang));
   try{localStorage.setItem("zam-lang",lang)}catch(e){}
   render();
   if(typeof showStep==="function")showStep();
   if(typeof mbSync==="function")mbSync();
+  if(typeof estInit==="function"){estInit();estCalc(false)}
+  if(typeof pdRender==="function"&&$("pd").open)pdRender();
 }
 document.querySelectorAll(".lang button").forEach(b=>b.addEventListener("click",()=>setLang(b.dataset.lang)));
 document.getElementById("search").addEventListener("submit",e=>{e.preventDefault();render();document.getElementById("biens").scrollIntoView()});
@@ -696,8 +919,9 @@ function waMessage(){
     [t.fType,label("ptype")],
     [t.fCity,[v("v-zip"),v("v-city")].filter(Boolean).join(" ")],
     [t.vM2,v("v-m2")],[t.vBeds,v("v-beds")],[t.vState,label("pstate")],
-    [t.vNote,v("v-note")],[t.cName,v("v-name")],[t.dPhone,v("v-tel")],["E-mail",v("v-mail")]
-  ].filter(r=>r[1]).map(r=>"• "+r[0]+" : "+r[1]);
+    [t.vNote,v("v-note")],
+    estUsed&&estLast?[t.estLine,fmt(estLast.lo)+" – "+fmt(estLast.hi)]:null,[t.cName,v("v-name")],[t.dPhone,v("v-tel")],["E-mail",v("v-mail")]
+  ].filter(r=>r&&r[1]).map(r=>"• "+r[0]+" : "+r[1]);
   return [t.waIntro,"",...rows,files.length?"\n"+fill(t.waPhotos,files.length):""].join("\n").trim();
 }
 function renderDone(){
@@ -720,7 +944,7 @@ F.addEventListener("submit",e=>{
 $("f-back").addEventListener("click",()=>go(Math.max(1,step-1)));
 F.querySelectorAll("[name=ptype]").forEach(r=>r.addEventListener("change",()=>{$("f-err").hidden=true;setTimeout(()=>{if(step===1)go(2)},260)}));
 F.addEventListener("input",e=>{e.target.removeAttribute("aria-invalid");if(!F.querySelector("[aria-invalid]"))$("f-err").hidden=true});
-$("f-restart").addEventListener("click",()=>{F.reset();files=[];drawThumbs();go(1)});
+$("f-restart").addEventListener("click",()=>{F.reset();estUsed=false;files=[];drawThumbs();go(1)});
 
 
 /* Mobile bar: hide while typing in a form or when the footer is in view */
@@ -728,6 +952,100 @@ const mbar=$("mbar");
 function mbSync(){$("mb-wa").href=waUrl(T[lang].waContact+" ")}
 document.addEventListener("focusin",e=>{if(e.target.matches("input,textarea,select"))mbar.classList.add("off")});
 document.addEventListener("focusout",()=>setTimeout(()=>{if(!document.activeElement.matches("input,textarea,select"))mbar.classList.remove("off")},50));
+
+/* Header over hero */
+const hdr=document.querySelector("header");
+function hdrSync(){hdr.classList.toggle("over",scrollY<40)}
+addEventListener("scroll",hdrSync,{passive:true});hdrSync();
+
+/* Estimator: 2025 median sale prices per commune (Statbel / Fednot) */
+const CITIES=[
+ ["Braine-l'Alleud","1420",420000,295000],["Braine-le-Château","1440",406000,280000],["Chaumont-Gistoux","1325",560000,null],
+ ["Genappe","1470",365000,285000],["La Hulpe","1310",535000,null],["Lasne","1380",798000,null],["Nivelles","1400",370000,215000],
+ ["Ottignies-Louvain-la-Neuve","1340",420000,244000],["Rixensart","1330",475000,300000],["Tubize","1480",303000,217500],
+ ["Villers-la-Ville","1495",385000,null],["Waterloo","1410",583000,381000],["Wavre","1300",421000,255000]
+];
+const BW=["","",403000,266000];
+const STATE={new:1.12,good:1,refresh:.9,renovate:.76};
+const r5=n=>Math.round(n/5000)*5000;
+let estLast=null,estUsed=false;
+function estInit(){
+  const sel=$("e-city"),cur=sel.value||"Genappe";
+  sel.innerHTML=CITIES.map(c=>`<option value="${c[0]}">${c[0]} (${c[1]})</option>`).join("")+`<option value="">${T[lang].otherCity}</option>`;
+  sel.value=cur;
+}
+function estCalc(anim=true){
+  const type=document.querySelector("[name=etype]:checked").value,st=document.querySelector("[name=estate]:checked").value;
+  const c=CITIES.find(x=>x[0]===$("e-city").value)||BW;
+  const m2=+$("e-m2").value,house=c[2],apt=c[3]||Math.round(house*.66);
+  const base=type==="apt"?apt:type==="villa"?house*1.22:house, typ=type==="apt"?90:type==="villa"?200:160;
+  const mid=base*Math.pow(m2/typ,.78)*STATE[st];
+  const lo=r5(mid*.93),hi=r5(mid*1.07),med=type==="apt"?apt:house;
+  $("e-low").textContent=fmt(lo);$("e-high").textContent=fmt(hi);
+  $("e-pm2").textContent=fmt(Math.round(mid/m2/10)*10)+"/m²";
+  $("e-med").textContent=fmt(r5(med));
+  $("e-m2-out").textContent=m2+" m²";
+  $("e-m2").style.setProperty("--pct",((m2-40)/(360))*100+"%");
+  const min=med*.35,max=med*2.4,pos=v=>Math.max(0,Math.min(100,(v-min)/(max-min)*100));
+  $("e-band").style.left=pos(lo)+"%";$("e-band").style.width=Math.max(2,pos(hi)-pos(lo))+"%";
+  $("e-medmark").style.left=pos(med)+"%";
+  if(anim){const e=$("e-price");e.classList.remove("pulse");void e.offsetWidth;e.classList.add("pulse")}
+  estLast={type,st,city:c[0],zip:c[1],m2,lo,hi};
+}
+$("est").addEventListener("input",()=>estCalc(true));
+$("est").addEventListener("submit",e=>e.preventDefault());
+$("e-go").addEventListener("click",()=>{
+  const e=estLast;if(!e)return;estUsed=true;
+  F.reset();
+  const pt=$(e.type==="apt"?"pt-apt":"pt-house");pt.checked=true;
+  $("v-city").value=e.city;$("v-zip").value=e.zip;$("v-m2").value=e.m2;
+  const map={new:"ps-new",good:"ps-good",refresh:"ps-ref",renovate:"ps-ren"};$(map[e.st]).checked=true;
+  go(3);
+  $("vendre").scrollIntoView({behavior:matchMedia("(prefers-reduced-motion: reduce)").matches?"auto":"smooth"});
+});
+
+/* Property detail dialog */
+const PD=$("pd");let pdP=null,pdI=0,pdOpener=null;
+function pdShow(i){
+  const n=pdP.img.length;pdI=(i+n)%n;
+  $("pd-img").src=IMG[pdP.img[pdI]];$("pd-img").alt=pdP.name[lang]+", "+fill(T[lang].photoOf,pdI+1);
+  $("pd-count").textContent=(pdI+1)+" / "+n;
+  $("pd-thumbs").querySelectorAll("button").forEach((b,k)=>b.setAttribute("aria-current",k===pdI));
+}
+function pdRender(){
+  const t=T[lang],p=pdP,n=p.img.length;
+  $("pd-deal").textContent=t[p.deal];$("pd-ref").textContent=t.f_ref+" ZAM-"+p.id;
+  $("pd-title").textContent=p.name[lang];$("pd-loc").textContent=p.zip+" "+p.city+", Brabant wallon";
+  $("pd-price").innerHTML=fmt(p.price)+(p.deal==="rent"?` <small>${t.perMonth}</small>`:"");
+  const facts=[[t.f_beds,p.beds],[t.f_baths,p.baths],[t.f_m2,p.m2+" m²"],p.land?[t.f_land,String(p.land).replace(".",lang==="en"?".":",")+" "+t.ares]:null,[t.f_year,p.year]].filter(Boolean);
+  $("pd-facts").innerHTML=facts.map(f=>`<li><span>${f[0]}</span><b>${f[1]}</b></li>`).join("");
+  $("pd-peb").innerHTML=PEB.map((c,k)=>`<span class="${c===p.peb?"on":""}" style="background:${PEBC[k]}">${c}</span>`).join("");
+  $("pd-kwh").textContent=p.kwh+" kWh/m².an";
+  $("pd-desc").textContent=p.desc[lang];
+  $("pd-feat").innerHTML=p.feat[lang].map(f=>`<li>${f}</li>`).join("");
+  $("pd-visit").href=waUrl(t.waVisit+"\n"+p.name[lang]+", "+p.city+" (ZAM-"+p.id+")");
+  const multi=n>1;$("pd-prev").hidden=$("pd-next").hidden=$("pd-thumbs").hidden=$("pd-count").hidden=!multi;
+  $("pd-thumbs").innerHTML=p.img.map((k,j)=>`<button type="button" data-k="${j}" aria-label="${fill(t.photoOf,j+1)}"><img src="${IMG[k]}" alt=""></button>`).join("");
+  pdShow(pdI);
+}
+function pdOpen(id,opener){
+  pdP=PROPS.find(p=>p.id===+id);if(!pdP)return;pdI=0;pdOpener=opener||null;pdRender();
+  if(!PD.open){PD.showModal();document.body.classList.add("lock")}
+  $("pd-x").focus();
+}
+function pdClose(){PD.close()}
+PD.addEventListener("close",()=>{document.body.classList.remove("lock");if(pdOpener)pdOpener.focus()});
+PD.addEventListener("click",e=>{if(e.target===PD)pdClose()});
+$("pd-x").addEventListener("click",pdClose);
+$("pd-prev").addEventListener("click",()=>pdShow(pdI-1));
+$("pd-next").addEventListener("click",()=>pdShow(pdI+1));
+$("pd-thumbs").addEventListener("click",e=>{const b=e.target.closest("button");if(b)pdShow(+b.dataset.k)});
+PD.addEventListener("keydown",e=>{if(pdP&&pdP.img.length>1){if(e.key==="ArrowRight")pdShow(pdI+1);if(e.key==="ArrowLeft")pdShow(pdI-1)}});
+let tx=null;const pm=document.querySelector(".pd-main");
+pm.addEventListener("touchstart",e=>{tx=e.touches[0].clientX},{passive:true});
+pm.addEventListener("touchend",e=>{if(tx==null||pdP.img.length<2)return;const dx=e.changedTouches[0].clientX-tx;if(Math.abs(dx)>40)pdShow(pdI+(dx<0?1:-1));tx=null});
+$("grid").addEventListener("click",e=>{const b=e.target.closest(".prop-open");if(b)pdOpen(b.dataset.id,b)});
+
 /* Photo previews */
 function drawThumbs(){
   const box=$("thumbs");box.innerHTML="";
@@ -750,6 +1068,7 @@ drop.addEventListener("drop",e=>{e.preventDefault();addFiles(e.dataTransfer.file
 let start="fr";const h=location.hash.replace("#","");
 if(T[h])start=h;else{try{const s=localStorage.getItem("zam-lang");if(T[s])start=s}catch(e){}}
 setLang(start);
+{const m=location.hash.match(/^#bien-(\d+)$/);if(m)pdOpen(m[1])}
 </script>
 
 </body>
