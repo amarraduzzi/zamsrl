@@ -1,0 +1,298 @@
+{
+  "properties": [
+    {
+      "id": 101,
+      "demo": true,
+      "deal": "sale",
+      "type": "house",
+      "city": "Genappe",
+      "zip": "1470",
+      "price": 785000,
+      "beds": 4,
+      "baths": 2,
+      "m2": 245,
+      "land": 12.5,
+      "year": 2021,
+      "peb": "A",
+      "kwh": 72,
+      "img": [
+        "assets/img/hero.jpg",
+        "assets/img/villa-ground.jpg",
+        "assets/img/detail.jpg"
+      ],
+      "name": {
+        "fr": "Villa contemporaine",
+        "nl": "Hedendaagse villa",
+        "en": "Contemporary villa"
+      },
+      "desc": {
+        "fr": "Villa basse énergie sur un terrain paysager au calme, à cinq minutes du centre de Genappe. Grandes baies vitrées plein sud, séjour traversant et suite parentale à l'étage.",
+        "nl": "Energiezuinige villa op een rustig aangelegd perceel, vijf minuten van het centrum van Genappe. Grote glaspartijen op het zuiden, doorlopende leefruimte en ouderlijke suite boven.",
+        "en": "Low-energy villa on a quiet landscaped plot, five minutes from central Genappe. Large south-facing glazing, through living room and a master suite upstairs."
+      },
+      "feat": {
+        "fr": [
+          "Terrasse plein sud",
+          "Garage 2 voitures",
+          "Pompe à chaleur",
+          "Panneaux solaires",
+          "Jardin paysager"
+        ],
+        "nl": [
+          "Terras op het zuiden",
+          "Garage voor 2 wagens",
+          "Warmtepomp",
+          "Zonnepanelen",
+          "Aangelegde tuin"
+        ],
+        "en": [
+          "South-facing terrace",
+          "Double garage",
+          "Heat pump",
+          "Solar panels",
+          "Landscaped garden"
+        ]
+      }
+    },
+    {
+      "id": 102,
+      "demo": true,
+      "deal": "sale",
+      "type": "house",
+      "city": "Nivelles",
+      "zip": "1400",
+      "price": 465000,
+      "beds": 3,
+      "baths": 1,
+      "m2": 160,
+      "land": 5.2,
+      "year": 1998,
+      "peb": "C",
+      "kwh": 185,
+      "img": [
+        "assets/img/white.jpg",
+        "assets/img/house-garden.jpg"
+      ],
+      "name": {
+        "fr": "Maison familiale avec jardin",
+        "nl": "Gezinswoning met tuin",
+        "en": "Family house with garden"
+      },
+      "desc": {
+        "fr": "Maison 4 façades lumineuse dans un quartier résidentiel, proche des écoles et de la gare de Nivelles. Jardin clos et grenier aménageable.",
+        "nl": "Lichte open bebouwing in een residentiële wijk, dicht bij scholen en het station van Nijvel. Omheinde tuin en inrichtbare zolder.",
+        "en": "Bright detached house in a residential area, close to schools and Nivelles station. Enclosed garden and convertible attic."
+      },
+      "feat": {
+        "fr": [
+          "Jardin clos",
+          "Garage",
+          "Grenier aménageable",
+          "Proche gare"
+        ],
+        "nl": [
+          "Omheinde tuin",
+          "Garage",
+          "Inrichtbare zolder",
+          "Dicht bij station"
+        ],
+        "en": [
+          "Enclosed garden",
+          "Garage",
+          "Convertible attic",
+          "Near station"
+        ]
+      }
+    },
+    {
+      "id": 103,
+      "demo": true,
+      "deal": "rent",
+      "type": "apt",
+      "city": "Waterloo",
+      "zip": "1410",
+      "price": 1350,
+      "beds": 2,
+      "baths": 1,
+      "m2": 95,
+      "land": null,
+      "year": 2019,
+      "peb": "B",
+      "kwh": 108,
+      "img": [
+        "assets/img/interior.jpg"
+      ],
+      "name": {
+        "fr": "Appartement lumineux",
+        "nl": "Licht appartement",
+        "en": "Bright apartment"
+      },
+      "desc": {
+        "fr": "Appartement récent au deuxième étage avec ascenseur, séjour ouvert sur une terrasse de 12 m². Libre de suite.",
+        "nl": "Recent appartement op de tweede verdieping met lift, open leefruimte met terras van 12 m². Onmiddellijk vrij.",
+        "en": "Recent second-floor apartment with lift, open living room onto a 12 m² terrace. Available now."
+      },
+      "feat": {
+        "fr": [
+          "Terrasse",
+          "Ascenseur",
+          "Cave",
+          "Parking"
+        ],
+        "nl": [
+          "Terras",
+          "Lift",
+          "Kelder",
+          "Parking"
+        ],
+        "en": [
+          "Terrace",
+          "Lift",
+          "Cellar",
+          "Parking"
+        ]
+      }
+    },
+    {
+      "id": 104,
+      "demo": true,
+      "deal": "sale",
+      "type": "apt",
+      "city": "Wavre",
+      "zip": "1300",
+      "price": 289000,
+      "beds": 2,
+      "baths": 1,
+      "m2": 98,
+      "land": null,
+      "year": 2012,
+      "peb": "B",
+      "kwh": 112,
+      "img": [
+        "assets/img/apt-m.jpg"
+      ],
+      "name": {
+        "fr": "Appartement 2 chambres avec terrasse",
+        "nl": "Appartement met 2 slaapkamers en terras",
+        "en": "2-bed apartment with terrace"
+      },
+      "desc": {
+        "fr": "Appartement soigné à distance à pied du centre de Wavre et de la E411. Idéal premier achat ou investissement locatif.",
+        "nl": "Verzorgd appartement op wandelafstand van het centrum van Waver en de E411. Ideaal als eerste woning of investering.",
+        "en": "Well-kept apartment within walking distance of central Wavre and the E411. Ideal first home or rental investment."
+      },
+      "feat": {
+        "fr": [
+          "Terrasse",
+          "Cave",
+          "Emplacement de parking"
+        ],
+        "nl": [
+          "Terras",
+          "Kelder",
+          "Parkeerplaats"
+        ],
+        "en": [
+          "Terrace",
+          "Cellar",
+          "Parking space"
+        ]
+      }
+    },
+    {
+      "id": 105,
+      "demo": true,
+      "deal": "sale",
+      "type": "house",
+      "city": "Lasne",
+      "zip": "1380",
+      "price": 1095000,
+      "beds": 5,
+      "baths": 3,
+      "m2": 310,
+      "land": 21,
+      "year": 2016,
+      "peb": "A+",
+      "kwh": 48,
+      "img": [
+        "assets/img/villa-m.jpg"
+      ],
+      "name": {
+        "fr": "Villa d'architecte",
+        "nl": "Architectenvilla",
+        "en": "Architect-designed villa"
+      },
+      "desc": {
+        "fr": "Villa d'architecte sur plus de 20 ares arborés, dans l'un des quartiers les plus recherchés de Lasne. Volumes généreux et finitions haut de gamme.",
+        "nl": "Architectenvilla op ruim 20 are met bomen, in een van de meest gegeerde wijken van Lasne. Royale volumes en hoogwaardige afwerking.",
+        "en": "Architect-designed villa on over 20 ares of wooded grounds, in one of Lasne's most sought-after areas. Generous volumes and high-end finishes."
+      },
+      "feat": {
+        "fr": [
+          "Terrain arboré",
+          "Triple garage",
+          "Domotique",
+          "Pompe à chaleur"
+        ],
+        "nl": [
+          "Grond met bomen",
+          "Garage voor 3 wagens",
+          "Domotica",
+          "Warmtepomp"
+        ],
+        "en": [
+          "Wooded grounds",
+          "Triple garage",
+          "Home automation",
+          "Heat pump"
+        ]
+      }
+    },
+    {
+      "id": 106,
+      "demo": true,
+      "deal": "sale",
+      "type": "house",
+      "city": "Braine-l'Alleud",
+      "zip": "1420",
+      "price": 435000,
+      "beds": 3,
+      "baths": 2,
+      "m2": 175,
+      "land": 4.8,
+      "year": 2005,
+      "peb": "C",
+      "kwh": 162,
+      "img": [
+        "assets/img/house-m.jpg"
+      ],
+      "name": {
+        "fr": "Maison 3 façades",
+        "nl": "Halfopen woning",
+        "en": "Semi-detached house"
+      },
+      "desc": {
+        "fr": "Maison 3 façades bien entretenue dans un quartier calme, proche du Ring et des commerces. Jardin orienté ouest.",
+        "nl": "Goed onderhouden halfopen woning in een rustige wijk, dicht bij de Ring en winkels. Tuin op het westen.",
+        "en": "Well-maintained semi-detached house in a quiet area, close to the Ring and shops. West-facing garden."
+      },
+      "feat": {
+        "fr": [
+          "Jardin orienté ouest",
+          "Garage",
+          "Buanderie"
+        ],
+        "nl": [
+          "Tuin op het westen",
+          "Garage",
+          "Wasplaats"
+        ],
+        "en": [
+          "West-facing garden",
+          "Garage",
+          "Utility room"
+        ]
+      }
+    }
+  ]
+}

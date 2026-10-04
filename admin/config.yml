@@ -1,0 +1,78 @@
+backend:
+  name: github
+  repo: amarraduzzi/zamsrl
+  branch: main
+  base_url: https://www.zamsrl.be
+  auth_endpoint: api/auth
+
+site_url: https://www.zamsrl.be
+display_url: https://www.zamsrl.be
+locale: fr
+media_folder: assets/img/uploads
+public_folder: /assets/img/uploads
+
+media_libraries:
+  default:
+    config:
+      transformations:
+        raster_image:
+          format: webp
+          quality: 85
+          width: 1800
+          height: 1800
+
+collections:
+  - name: biens
+    label: Biens immobiliers
+    files:
+      - name: properties
+        label: Liste des biens
+        file: content/properties.json
+        fields:
+          - label: Biens
+            label_singular: Bien
+            name: properties
+            widget: list
+            summary: "{{fields.id}} · {{fields.city}} · {{fields.price}} €"
+            fields:
+              - { label: "Référence (numéro unique)", name: id, widget: number, value_type: int, min: 1, hint: "Numéro unique, par exemple 107. Visible sur la fiche comme ZAM-107." }
+              - { label: "Bien d'exemple", name: demo, widget: boolean, default: false, required: false, hint: "Activé = l'étiquette « Exemple » s'affiche. Désactivez pour un vrai bien." }
+              - { label: Transaction, name: deal, widget: select, options: [{ label: À vendre, value: sale }, { label: À louer, value: rent }] }
+              - { label: Type, name: type, widget: select, options: [{ label: Maison, value: house }, { label: Appartement, value: apt }, { label: Terrain, value: land }] }
+              - { label: Commune, name: city, widget: string }
+              - { label: Code postal, name: zip, widget: string, pattern: ["^[0-9]{4}$", "4 chiffres, par exemple 1470"] }
+              - { label: "Prix (€, ou € par mois pour une location)", name: price, widget: number, value_type: int, min: 0 }
+              - { label: Chambres, name: beds, widget: number, value_type: int, min: 0 }
+              - { label: Salles de bain, name: baths, widget: number, value_type: int, min: 0 }
+              - { label: "Surface habitable (m²)", name: m2, widget: number, value_type: int, min: 0 }
+              - { label: "Terrain (ares)", name: land, widget: number, value_type: float, min: 0, required: false, hint: "Laissez vide pour un appartement." }
+              - { label: "Année de construction", name: year, widget: number, value_type: int, required: false }
+              - { label: "Certificat PEB", name: peb, widget: select, options: ["A++", "A+", "A", "B", "C", "D", "E", "F", "G"] }
+              - { label: "Consommation (kWh/m².an)", name: kwh, widget: number, value_type: int, min: 0, required: false }
+              - label: Photos
+                name: img
+                widget: list
+                hint: "La première photo est la photo principale."
+                field: { label: Photo, name: photo, widget: image }
+              - label: Titre
+                name: name
+                widget: object
+                fields:
+                  - { label: Français, name: fr, widget: string }
+                  - { label: Nederlands, name: nl, widget: string, required: false }
+                  - { label: English, name: en, widget: string, required: false }
+              - label: Description
+                name: desc
+                widget: object
+                fields:
+                  - { label: Français, name: fr, widget: text }
+                  - { label: Nederlands, name: nl, widget: text, required: false }
+                  - { label: English, name: en, widget: text, required: false }
+              - label: Points forts
+                name: feat
+                widget: object
+                required: false
+                fields:
+                  - { label: Français, name: fr, widget: list, required: false, field: { label: Point fort, name: item, widget: string } }
+                  - { label: Nederlands, name: nl, widget: list, required: false, field: { label: Kenmerk, name: item, widget: string } }
+                  - { label: English, name: en, widget: list, required: false, field: { label: Feature, name: item, widget: string } }

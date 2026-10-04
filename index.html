@@ -674,7 +674,7 @@ footer{background:var(--ink);color:var(--on-ink-muted);font-size:14px;padding-bl
       <div class="pd-thumbs" id="pd-thumbs"></div>
     </div>
     <div class="pd-info">
-      <div class="pd-tags"><span class="t" id="pd-deal"></span><span class="t demo" data-t="demo"></span><span class="ref" id="pd-ref"></span></div>
+      <div class="pd-tags"><span class="t" id="pd-deal"></span><span class="t demo" id="pd-demo" data-t="demo"></span><span class="ref" id="pd-ref"></span></div>
       <h2 id="pd-title"></h2>
       <p class="loc" id="pd-loc"></p>
       <div class="pd-price" id="pd-price"></div>
@@ -800,42 +800,27 @@ estSrc:"Source: 2025 median sale prices by town, Statbel and Fednot. Other towns
 view:"View property",pdVisit:"Book a viewing",pebLbl:"EPC certificate",f_beds:"Bedrooms",f_baths:"Bathrooms",f_m2:"Living area",f_land:"Plot",f_year:"Built",f_ref:"Reference",ares:"ares",
 close:"Close",prev:"Previous photo",next2:"Next photo",waVisit:"Hello ZAM SRL, I would like to book a viewing for:",photoOf:"Photo {n}"}
 };
-const PROPS=[
- {id:101,img:["villa","villaGround","detail"],deal:"sale",type:"house",city:"Genappe",zip:"1470",price:785000,beds:4,baths:2,m2:245,land:12.5,year:2021,peb:"A",kwh:72,
-  name:{fr:"Villa contemporaine",nl:"Hedendaagse villa",en:"Contemporary villa"},
-  desc:{fr:"Villa basse énergie sur un terrain paysager au calme, à cinq minutes du centre de Genappe. Grandes baies vitrées plein sud, séjour traversant et suite parentale à l'étage.",nl:"Energiezuinige villa op een rustig aangelegd perceel, vijf minuten van het centrum van Genappe. Grote glaspartijen op het zuiden, doorlopende leefruimte en ouderlijke suite boven.",en:"Low-energy villa on a quiet landscaped plot, five minutes from central Genappe. Large south-facing glazing, through living room and a master suite upstairs."},
-  feat:{fr:["Terrasse plein sud","Garage 2 voitures","Pompe à chaleur","Panneaux solaires","Jardin paysager"],nl:["Terras op het zuiden","Garage voor 2 wagens","Warmtepomp","Zonnepanelen","Aangelegde tuin"],en:["South-facing terrace","Double garage","Heat pump","Solar panels","Landscaped garden"]}},
- {id:102,img:["white","houseGarden"],deal:"sale",type:"house",city:"Nivelles",zip:"1400",price:465000,beds:3,baths:1,m2:160,land:5.2,year:1998,peb:"C",kwh:185,
-  name:{fr:"Maison familiale avec jardin",nl:"Gezinswoning met tuin",en:"Family house with garden"},
-  desc:{fr:"Maison 4 façades lumineuse dans un quartier résidentiel, proche des écoles et de la gare de Nivelles. Jardin clos et grenier aménageable.",nl:"Lichte open bebouwing in een residentiële wijk, dicht bij scholen en het station van Nijvel. Omheinde tuin en inrichtbare zolder.",en:"Bright detached house in a residential area, close to schools and Nivelles station. Enclosed garden and convertible attic."},
-  feat:{fr:["Jardin clos","Garage","Grenier aménageable","Proche gare"],nl:["Omheinde tuin","Garage","Inrichtbare zolder","Dicht bij station"],en:["Enclosed garden","Garage","Convertible attic","Near station"]}},
- {id:103,img:["interior"],deal:"rent",type:"apt",city:"Waterloo",zip:"1410",price:1350,beds:2,baths:1,m2:95,land:null,year:2019,peb:"B",kwh:108,
-  name:{fr:"Appartement lumineux",nl:"Licht appartement",en:"Bright apartment"},
-  desc:{fr:"Appartement récent au deuxième étage avec ascenseur, séjour ouvert sur une terrasse de 12 m². Libre de suite.",nl:"Recent appartement op de tweede verdieping met lift, open leefruimte met terras van 12 m². Onmiddellijk vrij.",en:"Recent second-floor apartment with lift, open living room onto a 12 m² terrace. Available now."},
-  feat:{fr:["Terrasse","Ascenseur","Cave","Parking"],nl:["Terras","Lift","Kelder","Parking"],en:["Terrace","Lift","Cellar","Parking"]}},
- {id:104,img:["aptM"],deal:"sale",type:"apt",city:"Wavre",zip:"1300",price:289000,beds:2,baths:1,m2:98,land:null,year:2012,peb:"B",kwh:112,
-  name:{fr:"Appartement 2 chambres avec terrasse",nl:"Appartement met 2 slaapkamers en terras",en:"2-bed apartment with terrace"},
-  desc:{fr:"Appartement soigné à distance à pied du centre de Wavre et de la E411. Idéal premier achat ou investissement locatif.",nl:"Verzorgd appartement op wandelafstand van het centrum van Waver en de E411. Ideaal als eerste woning of investering.",en:"Well-kept apartment within walking distance of central Wavre and the E411. Ideal first home or rental investment."},
-  feat:{fr:["Terrasse","Cave","Emplacement de parking"],nl:["Terras","Kelder","Parkeerplaats"],en:["Terrace","Cellar","Parking space"]}},
- {id:105,img:["villaM"],deal:"sale",type:"house",city:"Lasne",zip:"1380",price:1095000,beds:5,baths:3,m2:310,land:21,year:2016,peb:"A+",kwh:48,
-  name:{fr:"Villa d'architecte",nl:"Architectenvilla",en:"Architect-designed villa"},
-  desc:{fr:"Villa d'architecte sur plus de 20 ares arborés, dans l'un des quartiers les plus recherchés de Lasne. Volumes généreux et finitions haut de gamme.",nl:"Architectenvilla op ruim 20 are met bomen, in een van de meest gegeerde wijken van Lasne. Royale volumes en hoogwaardige afwerking.",en:"Architect-designed villa on over 20 ares of wooded grounds, in one of Lasne's most sought-after areas. Generous volumes and high-end finishes."},
-  feat:{fr:["Terrain arboré","Triple garage","Domotique","Pompe à chaleur"],nl:["Grond met bomen","Garage voor 3 wagens","Domotica","Warmtepomp"],en:["Wooded grounds","Triple garage","Home automation","Heat pump"]}},
- {id:106,img:["houseM"],deal:"sale",type:"house",city:"Braine-l'Alleud",zip:"1420",price:435000,beds:3,baths:2,m2:175,land:4.8,year:2005,peb:"C",kwh:162,
-  name:{fr:"Maison 3 façades",nl:"Halfopen woning",en:"Semi-detached house"},
-  desc:{fr:"Maison 3 façades bien entretenue dans un quartier calme, proche du Ring et des commerces. Jardin orienté ouest.",nl:"Goed onderhouden halfopen woning in een rustige wijk, dicht bij de Ring en winkels. Tuin op het westen.",en:"Well-maintained semi-detached house in a quiet area, close to the Ring and shops. West-facing garden."},
-  feat:{fr:["Jardin orienté ouest","Garage","Buanderie"],nl:["Tuin op het westen","Garage","Wasplaats"],en:["West-facing garden","Garage","Utility room"]}}
-];
+let PROPS=[],propsReady=false;
+const imgSrc=k=>IMG[k]||k;
+const LANGS=["fr","nl","en"];
+const fillLang=(o,d)=>{o=o||{};LANGS.forEach(l=>{const v=o[l];if(v==null||v===""||(Array.isArray(v)&&!v.length))o[l]=(o.fr!=null&&o.fr!==""&&!(Array.isArray(o.fr)&&!o.fr.length))?o.fr:d});return o};
+function loadProps(){
+  return fetch("content/properties.json",{cache:"no-cache"}).then(r=>r.ok?r.json():Promise.reject()).then(d=>{
+    PROPS=(d.properties||[]).map((p,i)=>({...p,id:p.id||900+i,img:(p.img&&p.img.length)?p.img:["assets/img/hero.jpg"],land:p.land||null,
+      name:fillLang(p.name,""),desc:fillLang(p.desc,""),feat:fillLang(p.feat,[])}));
+  }).catch(()=>{PROPS=[]}).then(()=>{propsReady=true});
+}
 const PEB=["A++","A+","A","B","C","D","E","F","G"],PEBC=["#0f7a3c","#2f9a45","#5fb046","#a6c739","#e8c41c","#f5a623","#ec7a24","#e0472a","#c62828"];
 const pebColor=c=>PEBC[PEB.indexOf(c)]||"#999";
 let lang="fr";
 const fmt=n=>new Intl.NumberFormat(lang==="en"?"en-GB":lang==="nl"?"nl-BE":"fr-BE").format(n)+" €";
 function render(){
+  if(!propsReady)return;
   const t=T[lang],deal=document.getElementById("f-deal").value,type=document.getElementById("f-type").value,
   city=document.getElementById("f-city").value.trim().toLowerCase(),bud=+document.getElementById("f-budget").value||0;
   const list=PROPS.filter(p=>(!deal||p.deal===deal)&&(!type||p.type===type)&&(!city||p.city.toLowerCase().includes(city))&&(!bud||p.deal==="rent"||p.price<=bud));
   const g=document.getElementById("grid");
-  g.innerHTML=list.length?list.map(p=>`<article class="prop"><figure><img src="${IMG[p.img[0]]}" alt="${p.name[lang]}" loading="lazy"><span class="tag">${t[p.deal]}</span><span class="tag demo">${t.demo}</span><span class="peb-chip">PEB <b style="background:${pebColor(p.peb)}">${p.peb}</b></span></figure><div class="prop-body"><div class="meta"><span>${p.beds} ${t.beds}</span><span>${p.baths} ${t.baths}</span><span>${p.m2} m²</span></div><h3>${p.name[lang]}</h3><div class="loc">${p.city}, Brabant wallon</div><div class="price">${fmt(p.price)}${p.deal==="rent"?` <small>${t.perMonth}</small>`:""}</div><div class="view"><span>${t.view}</span><i aria-hidden="true">→</i></div></div><button type="button" class="prop-open" data-id="${p.id}" aria-label="${t.view}: ${p.name[lang]}, ${p.city}"></button></article>`).join(""):`<p class="empty">${t.none}</p>`;
+  g.innerHTML=list.length?list.map(p=>`<article class="prop"><figure><img src="${imgSrc(p.img[0])}" alt="${p.name[lang]}" loading="lazy"><span class="tag">${t[p.deal]}</span>${p.demo?`<span class="tag demo">${t.demo}</span>`:""}<span class="peb-chip">PEB <b style="background:${pebColor(p.peb)}">${p.peb}</b></span></figure><div class="prop-body"><div class="meta"><span>${p.beds} ${t.beds}</span><span>${p.baths} ${t.baths}</span><span>${p.m2} m²</span></div><h3>${p.name[lang]}</h3><div class="loc">${p.city}, Brabant wallon</div><div class="price">${fmt(p.price)}${p.deal==="rent"?` <small>${t.perMonth}</small>`:""}</div><div class="view"><span>${t.view}</span><i aria-hidden="true">→</i></div></div><button type="button" class="prop-open" data-id="${p.id}" aria-label="${t.view}: ${p.name[lang]}, ${p.city}"></button></article>`).join(""):`<p class="empty">${t.none}</p>`;
 }
 function setLang(l){
   lang=T[l]?l:"fr";const t=T[lang];
@@ -1008,28 +993,28 @@ $("e-go").addEventListener("click",()=>{
 const PD=$("pd");let pdP=null,pdI=0,pdOpener=null;
 function pdShow(i){
   const n=pdP.img.length;pdI=(i+n)%n;
-  $("pd-img").src=IMG[pdP.img[pdI]];$("pd-img").alt=pdP.name[lang]+", "+fill(T[lang].photoOf,pdI+1);
+  $("pd-img").src=imgSrc(pdP.img[pdI]);$("pd-img").alt=pdP.name[lang]+", "+fill(T[lang].photoOf,pdI+1);
   $("pd-count").textContent=(pdI+1)+" / "+n;
   $("pd-thumbs").querySelectorAll("button").forEach((b,k)=>b.setAttribute("aria-current",k===pdI));
 }
 function pdRender(){
   const t=T[lang],p=pdP,n=p.img.length;
-  $("pd-deal").textContent=t[p.deal];$("pd-ref").textContent=t.f_ref+" ZAM-"+p.id;
+  $("pd-deal").textContent=t[p.deal];$("pd-demo").style.display=p.demo?"":"none";$("pd-ref").textContent=t.f_ref+" ZAM-"+p.id;
   $("pd-title").textContent=p.name[lang];$("pd-loc").textContent=p.zip+" "+p.city+", Brabant wallon";
   $("pd-price").innerHTML=fmt(p.price)+(p.deal==="rent"?` <small>${t.perMonth}</small>`:"");
-  const facts=[[t.f_beds,p.beds],[t.f_baths,p.baths],[t.f_m2,p.m2+" m²"],p.land?[t.f_land,String(p.land).replace(".",lang==="en"?".":",")+" "+t.ares]:null,[t.f_year,p.year]].filter(Boolean);
+  const facts=[[t.f_beds,p.beds],[t.f_baths,p.baths],[t.f_m2,p.m2+" m²"],p.land?[t.f_land,String(p.land).replace(".",lang==="en"?".":",")+" "+t.ares]:null,p.year?[t.f_year,p.year]:null].filter(Boolean);
   $("pd-facts").innerHTML=facts.map(f=>`<li><span>${f[0]}</span><b>${f[1]}</b></li>`).join("");
   $("pd-peb").innerHTML=PEB.map((c,k)=>`<span class="${c===p.peb?"on":""}" style="background:${PEBC[k]}">${c}</span>`).join("");
-  $("pd-kwh").textContent=p.kwh+" kWh/m².an";
+  $("pd-kwh").textContent=p.kwh?p.kwh+" kWh/m².an":"";
   $("pd-desc").textContent=p.desc[lang];
   $("pd-feat").innerHTML=p.feat[lang].map(f=>`<li>${f}</li>`).join("");
   $("pd-visit").href=waUrl(t.waVisit+"\n"+p.name[lang]+", "+p.city+" (ZAM-"+p.id+")");
   const multi=n>1;$("pd-prev").hidden=$("pd-next").hidden=$("pd-thumbs").hidden=$("pd-count").hidden=!multi;
-  $("pd-thumbs").innerHTML=p.img.map((k,j)=>`<button type="button" data-k="${j}" aria-label="${fill(t.photoOf,j+1)}"><img src="${IMG[k]}" alt=""></button>`).join("");
+  $("pd-thumbs").innerHTML=p.img.map((k,j)=>`<button type="button" data-k="${j}" aria-label="${fill(t.photoOf,j+1)}"><img src="${imgSrc(k)}" alt=""></button>`).join("");
   pdShow(pdI);
 }
 function pdOpen(id,opener){
-  pdP=PROPS.find(p=>p.id===+id);if(!pdP)return;pdI=0;pdOpener=opener||null;pdRender();
+  pdP=PROPS.find(p=>String(p.id)===String(id));if(!pdP)return;pdI=0;pdOpener=opener||null;pdRender();
   if(!PD.open){PD.showModal();document.body.classList.add("lock")}
   $("pd-x").focus();
 }
@@ -1068,7 +1053,7 @@ drop.addEventListener("drop",e=>{e.preventDefault();addFiles(e.dataTransfer.file
 let start="fr";const h=location.hash.replace("#","");
 if(T[h])start=h;else{try{const s=localStorage.getItem("zam-lang");if(T[s])start=s}catch(e){}}
 setLang(start);
-{const m=location.hash.match(/^#bien-(\d+)$/);if(m)pdOpen(m[1])}
+loadProps().then(()=>{render();const m=location.hash.match(/^#bien-([\w-]+)$/);if(m)pdOpen(m[1])});
 </script>
 
 </body>
