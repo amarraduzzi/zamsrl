@@ -5,28 +5,91 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="robots" content="noindex">
   <title>ZAM SRL · Gestion du site</title>
-  <style>#wait{font:16px system-ui,sans-serif;color:#555;text-align:center;margin-top:30vh}</style>
+  <link rel="icon" href="/assets/img/favicon.svg">
+  <style>
+    :root { --ink:#141312; --line:#34302a; --gold:#c49a58; --gold-deep:#9c7638; --on-ink:#f3efe6; --muted:#b9b1a2; }
+    * { box-sizing: border-box; }
+    body { margin: 0; min-height: 100vh; display: grid; place-items: center; padding: 16px;
+      background: var(--ink); color: var(--on-ink); font: 16px/1.5 system-ui, -apple-system, "Segoe UI", sans-serif; }
+    .box { width: 100%; max-width: 360px; text-align: center; }
+    .logo { font: 600 28px/1 Georgia, serif; letter-spacing: .18em; color: var(--gold); margin-bottom: 6px; }
+    .sub { color: var(--muted); font-size: 14px; margin: 0 0 28px; }
+    form { display: grid; gap: 12px; text-align: left; }
+    label { font-size: 14px; color: var(--muted); }
+    input { width: 100%; padding: 13px 14px; font-size: 16px; color: var(--on-ink); background: #1f1d1a;
+      border: 1px solid var(--line); border-radius: 8px; }
+    input:focus { outline: 2px solid var(--gold); outline-offset: 1px; }
+    button { padding: 13px; font-size: 16px; font-weight: 600; color: var(--ink); background: var(--gold);
+      border: 0; border-radius: 8px; cursor: pointer; }
+    button:hover { background: #d3ab6c; }
+    button:disabled { opacity: .6; cursor: wait; }
+    .err { color: #f0a08a; font-size: 14px; min-height: 21px; margin: 0; }
+    .wait { color: var(--muted); }
+  </style>
 </head>
 <body>
-  <p id="wait">Chargement…</p>
+  <div class="box" id="box">
+    <p class="wait">Chargement…</p>
+  </div>
   <script>
-  // Sign in automatically with the key from /api/token (only works after the Cloudflare Access e-mail code).
-  (async () => {
-    const ADMIN = "https://zamsrl.pages.dev/admin/";
-    try {
-      const r = await fetch("/api/token", { cache: "no-store", credentials: "same-origin" });
-      if (r.ok) {
-        const { token } = await r.json();
-        localStorage.setItem("sveltia-cms.user", JSON.stringify({ backendName: "github", token }));
-      } else if (r.status === 401 && location.href.indexOf(ADMIN) !== 0) {
-        location.replace(ADMIN);
-        return;
-      }
-    } catch (e) {}
-    document.getElementById("wait").remove();
-    const s = document.createElement("script");
-    s.src = "https://unpkg.com/@sveltia/cms@0/dist/sveltia-cms.js";
-    document.body.append(s);
+  (() => {
+    const box = document.getElementById("box");
+
+    async function getToken() {
+      try {
+        const r = await fetch("/api/token", { cache: "no-store", credentials: "same-origin" });
+        if (r.ok) return (await r.json()).token;
+      } catch (e) {}
+      return null;
+    }
+
+    function startCms(token) {
+      // Sveltia signs in automatically with this stored key.
+      try { localStorage.setItem("sveltia-cms.user", JSON.stringify({ backendName: "github", token })); } catch (e) {}
+      box.remove();
+      document.body.removeAttribute("style");
+      document.head.querySelector("style").remove();
+      const s = document.createElement("script");
+      s.src = "https://unpkg.com/@sveltia/cms@0/dist/sveltia-cms.js";
+      document.body.append(s);
+    }
+
+    function showLogin() {
+      try { localStorage.removeItem("sveltia-cms.user"); } catch (e) {}
+      box.innerHTML = `
+        <div class="logo">ZAM</div>
+        <p class="sub">Gestion du site</p>
+        <form id="f">
+          <label for="pw">Mot de passe</label>
+          <input id="pw" type="password" autocomplete="current-password" required autofocus>
+          <p class="err" id="err" role="alert"></p>
+          <button id="go">Se connecter</button>
+        </form>`;
+      document.getElementById("f").addEventListener("submit", async (e) => {
+        e.preventDefault();
+        const go = document.getElementById("go"), err = document.getElementById("err");
+        go.disabled = true; err.textContent = "";
+        try {
+          const r = await fetch("/api/login", { method: "POST", credentials: "same-origin",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ password: document.getElementById("pw").value }) });
+          if (r.ok) {
+            const token = await getToken();
+            if (token) return startCms(token);
+            err.textContent = "Connexion impossible. Contactez Amplify.";
+          } else if (r.status === 401) {
+            err.textContent = "Mot de passe incorrect.";
+          } else {
+            err.textContent = "Le site n'est pas encore configuré. Contactez Amplify.";
+          }
+        } catch (e) {
+          err.textContent = "Pas de connexion internet ?";
+        }
+        go.disabled = false;
+      });
+    }
+
+    getToken().then((t) => (t ? startCms(t) : showLogin()));
   })();
   </script>
 </body>

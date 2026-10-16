@@ -21,19 +21,19 @@ Statische website voor ZAM SRL (Genappe, BE 0477.597.415). Frans als standaardta
 ## Beheer door de eigenaar (CMS)
 De klant beheert **panden** (`content/properties.json`) en **teksten** (`content/texts.json`, FR/NL/EN) via `/admin`. Layout en design blijven bij Amplify.
 
-Inloggen gaat zonder GitHub-account:
-1. Klant opent `https://zamsrl.pages.dev/admin` (zamsrl.be/admin stuurt daarheen door).
-2. Cloudflare Access vraagt zijn e-mail en stuurt een code van 6 cijfers.
-3. `/api/token` controleert de Access-login en geeft het CMS de GitHub-sleutel. Het CMS logt automatisch in.
+Inloggen gaat zonder GitHub-account, met één wachtwoord:
+1. Klant opent `https://zamsrl.pages.dev/admin` (of zamsrl.be/admin zodra het domein naar Cloudflare wijst).
+2. Wachtwoord invullen. `/api/login` zet een beveiligde cookie (30 dagen geldig).
+3. `/api/token` controleert die cookie en geeft het CMS de GitHub-sleutel. Het CMS logt automatisch in.
 4. Na Publiceren wordt de site automatisch opnieuw uitgerold (ongeveer 1 minuut).
 
 Teksten in `content/texts.json` overschrijven de standaardteksten in het `T`-object in `index.html`. Een leeg veld valt terug op de standaardtekst. Nieuwe tekstvelden toevoegen: key in `T`, in `content/texts.json` en in `admin/config.yml`.
 
 ### Eenmalige installatie
 - **GitHub**: fine-grained token, alleen repo `amarraduzzi/zamsrl`, permissie Contents: Read and write.
-- **Cloudflare Zero Trust > Access > Applications**: self-hosted app op `zamsrl.pages.dev` met paden `admin` en `api/token`, policy Allow op de e-mailadressen van de klant en Amplify, login via One-time PIN.
-- **Cloudflare Pages > zamsrl > Settings > Variables and Secrets**: `GITHUB_TOKEN` (secret), `ACCESS_TEAM` (teamnaam), `ACCESS_AUD` (Application Audience tag van de Access-app). Daarna opnieuw deployen.
-- Lokaal testen: `python3 -m http.server` (panden en teksten worden via `fetch` geladen).
+- **Cloudflare Pages > zamsrl > Settings > Variables and Secrets** (type Secret): `GITHUB_TOKEN` en `ADMIN_PASSWORD`. Daarna opnieuw deployen.
+- Wachtwoord wijzigen: `ADMIN_PASSWORD` aanpassen en opnieuw deployen. Alle bestaande logins vervallen dan.
+- Lokaal testen: `python3 -m http.server` voor de site, `npx wrangler pages dev .` met een `.dev.vars` voor het beheerscherm.
 
 ## Deploy
 Werkt direct op Cloudflare Pages, Netlify of GitHub Pages: geen build-stap nodig.
