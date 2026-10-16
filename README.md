@@ -14,19 +14,26 @@ Statische website voor ZAM SRL (Genappe, BE 0477.597.415). Frans als standaardta
 
 ## Nog te doen voor livegang
 - Echt e-mailadres invullen (nu placeholder).
-- Echte panden toevoegen via `/admin`; de 6 huidige panden zijn voorbeelden (veld "Bien d'exemple" aan).
+- Echte panden toevoegen via `/admin`; de 6 huidige panden zijn voorbeelden (veld "Bien d'exemple" aan). Tekst "Nos biens" vermeldt nog dat het voorbeelden zijn.
 - Contactformulier koppelen (bijv. Formspree of Cloudflare Pages Functions).
 - Bevestigen dat de copy klopt met de activiteit van ZAM (eigen vastgoed kopen/verkopen/verhuren, geen makelaardij zonder BIV/IPI-erkenning).
 
 ## Beheer door de eigenaar (CMS)
-1. Open `https://www.zamsrl.be/admin` en log in met GitHub (account moet schrijfrechten hebben op deze repo).
-2. Pand toevoegen, wijzigen of verwijderen en op Publiceren klikken. De site wordt automatisch opnieuw uitgerold (ongeveer 1 minuut).
-3. Foto's uploaden gaat in hetzelfde scherm; ze komen in `assets/img/uploads/`.
+De klant beheert **panden** (`content/properties.json`) en **teksten** (`content/texts.json`, FR/NL/EN) via `/admin`. Layout en design blijven bij Amplify.
+
+Inloggen gaat zonder GitHub-account:
+1. Klant opent `https://zamsrl.pages.dev/admin` (zamsrl.be/admin stuurt daarheen door).
+2. Cloudflare Access vraagt zijn e-mail en stuurt een code van 6 cijfers.
+3. `/api/token` controleert de Access-login en geeft het CMS de GitHub-sleutel. Het CMS logt automatisch in.
+4. Na Publiceren wordt de site automatisch opnieuw uitgerold (ongeveer 1 minuut).
+
+Teksten in `content/texts.json` overschrijven de standaardteksten in het `T`-object in `index.html`. Een leeg veld valt terug op de standaardtekst. Nieuwe tekstvelden toevoegen: key in `T`, in `content/texts.json` en in `admin/config.yml`.
 
 ### Eenmalige installatie
-- GitHub > Settings > Developer settings > OAuth Apps > New. Homepage URL `https://www.zamsrl.be`, callback URL `https://www.zamsrl.be/api/callback`.
-- Cloudflare Pages > het project > Settings > Variables and Secrets: `GITHUB_CLIENT_ID` en `GITHUB_CLIENT_SECRET` (secret) toevoegen en opnieuw deployen.
-- Lokaal testen kan niet via dubbelklikken op `index.html`; gebruik `python3 -m http.server` (de panden worden via `fetch` geladen).
+- **GitHub**: fine-grained token, alleen repo `amarraduzzi/zamsrl`, permissie Contents: Read and write.
+- **Cloudflare Zero Trust > Access > Applications**: self-hosted app op `zamsrl.pages.dev` met paden `admin` en `api/token`, policy Allow op de e-mailadressen van de klant en Amplify, login via One-time PIN.
+- **Cloudflare Pages > zamsrl > Settings > Variables and Secrets**: `GITHUB_TOKEN` (secret), `ACCESS_TEAM` (teamnaam), `ACCESS_AUD` (Application Audience tag van de Access-app). Daarna opnieuw deployen.
+- Lokaal testen: `python3 -m http.server` (panden en teksten worden via `fetch` geladen).
 
 ## Deploy
 Werkt direct op Cloudflare Pages, Netlify of GitHub Pages: geen build-stap nodig.

@@ -1053,6 +1053,12 @@ drop.addEventListener("drop",e=>{e.preventDefault();addFiles(e.dataTransfer.file
 let start="fr";const h=location.hash.replace("#","");
 if(T[h])start=h;else{try{const s=localStorage.getItem("zam-lang");if(T[s])start=s}catch(e){}}
 setLang(start);
+/* Site texts edited in /admin (content/texts.json) override the defaults in T */
+fetch("content/texts.json",{cache:"no-cache"}).then(r=>r.ok?r.json():null).then(d=>{
+  if(!d)return;
+  LANGS.forEach(l=>{if(!d[l]||!T[l])return;Object.values(d[l]).forEach(sec=>{if(sec&&typeof sec==="object")Object.entries(sec).forEach(([k,v])=>{if(typeof v==="string"&&v.trim())T[l][k]=v})})});
+  setLang(lang);
+}).catch(()=>{});
 loadProps().then(()=>{render();const m=location.hash.match(/^#bien-([\w-]+)$/);if(m)pdOpen(m[1])});
 </script>
 

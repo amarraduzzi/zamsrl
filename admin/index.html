@@ -4,9 +4,30 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="robots" content="noindex">
-  <title>ZAM SRL · Gestion des biens</title>
+  <title>ZAM SRL · Gestion du site</title>
+  <style>#wait{font:16px system-ui,sans-serif;color:#555;text-align:center;margin-top:30vh}</style>
 </head>
 <body>
-  <script src="https://unpkg.com/@sveltia/cms/dist/sveltia-cms.js"></script>
+  <p id="wait">Chargement…</p>
+  <script>
+  // Sign in automatically with the key from /api/token (only works after the Cloudflare Access e-mail code).
+  (async () => {
+    const ADMIN = "https://zamsrl.pages.dev/admin/";
+    try {
+      const r = await fetch("/api/token", { cache: "no-store", credentials: "same-origin" });
+      if (r.ok) {
+        const { token } = await r.json();
+        localStorage.setItem("sveltia-cms.user", JSON.stringify({ backendName: "github", token }));
+      } else if (r.status === 401 && location.href.indexOf(ADMIN) !== 0) {
+        location.replace(ADMIN);
+        return;
+      }
+    } catch (e) {}
+    document.getElementById("wait").remove();
+    const s = document.createElement("script");
+    s.src = "https://unpkg.com/@sveltia/cms@0/dist/sveltia-cms.js";
+    document.body.append(s);
+  })();
+  </script>
 </body>
 </html>

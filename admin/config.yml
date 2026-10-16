@@ -2,12 +2,22 @@ backend:
   name: github
   repo: amarraduzzi/zamsrl
   branch: main
-  base_url: https://www.zamsrl.be
-  auth_endpoint: api/auth
+  commit_messages:
+    create: "CMS: ajout {{collection}} {{slug}}"
+    update: "CMS: modification {{collection}} {{slug}}"
+    delete: "CMS: suppression {{collection}} {{slug}}"
+    uploadMedia: "CMS: photo {{path}}"
+    deleteMedia: "CMS: suppression photo {{path}}"
 
 site_url: https://www.zamsrl.be
 display_url: https://www.zamsrl.be
 locale: fr
+
+i18n:
+  structure: single_file
+  locales: [fr, nl, en]
+  default_locale: fr
+
 media_folder: assets/img/uploads
 public_folder: /assets/img/uploads
 
@@ -76,3 +86,98 @@ collections:
                   - { label: Français, name: fr, widget: list, required: false, field: { label: Point fort, name: item, widget: string } }
                   - { label: Nederlands, name: nl, widget: list, required: false, field: { label: Kenmerk, name: item, widget: string } }
                   - { label: English, name: en, widget: list, required: false, field: { label: Feature, name: item, widget: string } }
+  - name: textes
+    label: Textes du site
+    i18n: true
+    files:
+      - name: texts
+        label: Textes du site
+        file: content/texts.json
+        i18n: true
+        fields:
+          - label: "Accueil (haut de page)"
+            name: accueil
+            widget: object
+            i18n: true
+            collapsed: true
+            fields:
+              - { label: "Titre, ligne 1", name: h1a, widget: string, i18n: true, required: [fr] }
+              - { label: "Titre, ligne 2 (en doré)", name: h1b, widget: string, i18n: true, required: [fr] }
+              - { label: "Texte sous le titre", name: lead, widget: text, i18n: true, required: [fr] }
+          - label: "Bandeau des 4 atouts"
+            name: atouts
+            widget: object
+            i18n: true
+            collapsed: true
+            fields:
+              - { label: "Atout 1, mot", name: p1, widget: string, i18n: true, required: [fr] }
+              - { label: "Atout 1, suite", name: p1s, widget: string, i18n: true, required: [fr] }
+              - { label: "Atout 2, mot", name: p2, widget: string, i18n: true, required: [fr] }
+              - { label: "Atout 2, suite", name: p2s, widget: string, i18n: true, required: [fr] }
+              - { label: "Atout 3, mot", name: p3, widget: string, i18n: true, required: [fr] }
+              - { label: "Atout 3, suite", name: p3s, widget: string, i18n: true, required: [fr] }
+              - { label: "Atout 4, mot", name: p4, widget: string, i18n: true, required: [fr] }
+              - { label: "Atout 4, suite", name: p4s, widget: string, i18n: true, required: [fr] }
+          - label: "À propos"
+            name: apropos
+            widget: object
+            i18n: true
+            collapsed: true
+            fields:
+              - { label: "Titre", name: aboutH, widget: string, i18n: true, required: [fr] }
+              - { label: "Texte", name: aboutP, widget: text, i18n: true, required: [fr] }
+              - { label: "Point 1, titre", name: b1, widget: string, i18n: true, required: [fr] }
+              - { label: "Point 1, texte", name: b1s, widget: string, i18n: true, required: [fr] }
+              - { label: "Point 2, titre", name: b2, widget: string, i18n: true, required: [fr] }
+              - { label: "Point 2, texte", name: b2s, widget: string, i18n: true, required: [fr] }
+              - { label: "Point 3, titre", name: b3, widget: string, i18n: true, required: [fr] }
+              - { label: "Point 3, texte", name: b3s, widget: string, i18n: true, required: [fr] }
+              - { label: "Devise", name: motto, widget: string, i18n: true, required: [fr] }
+          - label: "Nos biens"
+            name: biens
+            widget: object
+            i18n: true
+            collapsed: true
+            fields:
+              - { label: "Titre", name: listH, widget: string, i18n: true, required: [fr] }
+              - { label: "Texte d'introduction", name: listP, widget: text, i18n: true, required: [fr] }
+          - label: "Vendre votre bien"
+            name: vendre
+            widget: object
+            i18n: true
+            collapsed: true
+            fields:
+              - { label: "Titre", name: sellH, widget: string, i18n: true, required: [fr] }
+              - { label: "Texte", name: sellP, widget: text, i18n: true, required: [fr] }
+              - { label: "Étape 1, titre", name: s1, widget: string, i18n: true, required: [fr] }
+              - { label: "Étape 1, texte", name: s1s, widget: string, i18n: true, required: [fr] }
+              - { label: "Étape 2, titre", name: s2, widget: string, i18n: true, required: [fr] }
+              - { label: "Étape 2, texte", name: s2s, widget: string, i18n: true, required: [fr] }
+              - { label: "Étape 3, titre", name: s3, widget: string, i18n: true, required: [fr] }
+              - { label: "Étape 3, texte", name: s3s, widget: string, i18n: true, required: [fr] }
+              - { label: "Étape 4, titre", name: s4, widget: string, i18n: true, required: [fr] }
+              - { label: "Étape 4, texte", name: s4s, widget: string, i18n: true, required: [fr] }
+          - label: "Questions fréquentes"
+            name: faq
+            widget: object
+            i18n: true
+            collapsed: true
+            fields:
+              - { label: "Titre", name: faqH, widget: string, i18n: true, required: [fr] }
+              - { label: "Texte d'introduction", name: faqP, widget: text, i18n: true, required: [fr] }
+              - { label: "Question 1", name: q1, widget: string, i18n: true, required: [fr] }
+              - { label: "Réponse 1", name: a1, widget: text, i18n: true, required: [fr] }
+              - { label: "Question 2", name: q2, widget: string, i18n: true, required: [fr] }
+              - { label: "Réponse 2", name: a2, widget: text, i18n: true, required: [fr] }
+              - { label: "Question 3", name: q3, widget: string, i18n: true, required: [fr] }
+              - { label: "Réponse 3", name: a3, widget: text, i18n: true, required: [fr] }
+              - { label: "Question 4", name: q4, widget: string, i18n: true, required: [fr] }
+              - { label: "Réponse 4", name: a4, widget: text, i18n: true, required: [fr] }
+          - label: "Contact"
+            name: contact
+            widget: object
+            i18n: true
+            collapsed: true
+            fields:
+              - { label: "Titre", name: contactH, widget: string, i18n: true, required: [fr] }
+              - { label: "Texte", name: contactP, widget: text, i18n: true, required: [fr] }

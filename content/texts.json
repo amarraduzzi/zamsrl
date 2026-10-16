@@ -1,0 +1,182 @@
+{
+  "fr": {
+    "accueil": {
+      "h1a": "Achat de biens",
+      "h1b": "et vente au meilleur prix",
+      "lead": "Votre projet immobilier, notre priorité. Société immobilière établie à Genappe depuis 2002."
+    },
+    "atouts": {
+      "p1": "Achat",
+      "p1s": "de biens immobiliers",
+      "p2": "Vente",
+      "p2s": "au meilleur prix",
+      "p3": "Accompagnement",
+      "p3s": "de A à Z",
+      "p4": "Confiance",
+      "p4s": "et transparence"
+    },
+    "apropos": {
+      "aboutH": "Votre partenaire en immobilier",
+      "aboutP": "Depuis plus de vingt ans, ZAM SRL achète, gère et met en vente ou en location des biens résidentiels en Brabant wallon. Nous traitons directement avec vous, sans intermédiaire, pour une transaction claire et sécurisée.",
+      "b1": "Estimation juste et réaliste",
+      "b1s": "Une offre basée sur l'état du bien et le marché local.",
+      "b2": "Transactions rapides et sécurisées",
+      "b2s": "Décision rapide, acte signé chez le notaire.",
+      "b3": "Un service personnalisé",
+      "b3s": "Un seul interlocuteur, proche de vous.",
+      "motto": "Investir aujourd'hui, construire demain"
+    },
+    "biens": {
+      "listH": "Biens disponibles",
+      "listP": "Maisons et appartements de notre portefeuille, à vendre ou à louer. Les biens ci-dessous sont des exemples de présentation."
+    },
+    "vendre": {
+      "sellH": "Nous achetons votre bien",
+      "sellP": "Vous souhaitez vendre rapidement, sans visites à répétition ni incertitude ? ZAM SRL vous fait une offre d'achat directe.",
+      "s1": "Premier contact",
+      "s1s": "Décrivez votre bien par téléphone ou via le formulaire.",
+      "s2": "Visite",
+      "s2s": "Nous visitons le bien avec vous, sans engagement.",
+      "s3": "Offre écrite",
+      "s3s": "Vous recevez une offre d'achat claire et motivée.",
+      "s4": "Acte notarié",
+      "s4s": "La vente est finalisée chez le notaire de votre choix."
+    },
+    "faq": {
+      "faqH": "Questions fréquentes",
+      "faqP": "Vous ne trouvez pas votre réponse ? Écrivez-nous, nous répondons rapidement.",
+      "q1": "Quels types de biens achetez-vous ?",
+      "a1": "Principalement des maisons et appartements résidentiels en Brabant wallon et dans les communes voisines, quel que soit leur état.",
+      "q2": "L'offre d'achat est-elle gratuite ?",
+      "a2": "Oui. La visite et l'offre sont gratuites et sans engagement.",
+      "q3": "Combien de temps prend une vente ?",
+      "a3": "Après acceptation de l'offre, le compromis peut être signé rapidement. L'acte authentique suit dans le délai légal habituel, chez le notaire.",
+      "q4": "Proposez-vous des biens en location ?",
+      "a4": "Oui, une partie de notre portefeuille est proposée en location. Consultez nos biens ou contactez-nous pour les disponibilités."
+    },
+    "contact": {
+      "contactH": "Parlons de votre projet",
+      "contactP": "Achat, vente ou location : laissez-nous un message et nous vous recontactons."
+    }
+  },
+  "nl": {
+    "accueil": {
+      "h1a": "Aankoop van panden",
+      "h1b": "en verkoop tegen de beste prijs",
+      "lead": "Uw vastgoedproject, onze prioriteit. Vastgoedvennootschap gevestigd in Genappe sinds 2002."
+    },
+    "atouts": {
+      "p1": "Aankoop",
+      "p1s": "van vastgoed",
+      "p2": "Verkoop",
+      "p2s": "tegen de beste prijs",
+      "p3": "Begeleiding",
+      "p3s": "van A tot Z",
+      "p4": "Vertrouwen",
+      "p4s": "en transparantie"
+    },
+    "apropos": {
+      "aboutH": "Uw partner in vastgoed",
+      "aboutP": "Al meer dan twintig jaar koopt en beheert ZAM SRL residentieel vastgoed in Waals-Brabant, en biedt het te koop of te huur aan. U werkt rechtstreeks met ons, zonder tussenpersoon, voor een duidelijke en veilige transactie.",
+      "b1": "Correcte en realistische schatting",
+      "b1s": "Een bod op basis van de staat van het pand en de lokale markt.",
+      "b2": "Snelle en veilige transacties",
+      "b2s": "Snelle beslissing, akte bij de notaris.",
+      "b3": "Persoonlijke service",
+      "b3s": "Eén aanspreekpunt, dichtbij.",
+      "motto": "Vandaag investeren, morgen bouwen"
+    },
+    "biens": {
+      "listH": "Beschikbare panden",
+      "listP": "Woningen en appartementen uit onze portefeuille, te koop of te huur. De panden hieronder zijn voorbeelden."
+    },
+    "vendre": {
+      "sellH": "Wij kopen uw pand",
+      "sellP": "Wilt u snel verkopen, zonder eindeloze bezichtigingen of onzekerheid? ZAM SRL doet u een rechtstreeks aankoopbod.",
+      "s1": "Eerste contact",
+      "s1s": "Beschrijf uw pand telefonisch of via het formulier.",
+      "s2": "Bezoek",
+      "s2s": "We bezoeken het pand samen met u, vrijblijvend.",
+      "s3": "Schriftelijk bod",
+      "s3s": "U ontvangt een duidelijk en onderbouwd aankoopbod.",
+      "s4": "Notariële akte",
+      "s4s": "De verkoop wordt afgerond bij de notaris van uw keuze."
+    },
+    "faq": {
+      "faqH": "Veelgestelde vragen",
+      "faqP": "Staat uw vraag er niet bij? Stuur ons een bericht, we antwoorden snel.",
+      "q1": "Welke panden kopen jullie?",
+      "a1": "Vooral residentiële woningen en appartementen in Waals-Brabant en omliggende gemeenten, in elke staat.",
+      "q2": "Is het aankoopbod gratis?",
+      "a2": "Ja. Het bezoek en het bod zijn gratis en vrijblijvend.",
+      "q3": "Hoe lang duurt een verkoop?",
+      "a3": "Na aanvaarding van het bod kan de compromis snel getekend worden. De authentieke akte volgt binnen de gebruikelijke wettelijke termijn bij de notaris.",
+      "q4": "Verhuren jullie ook panden?",
+      "a4": "Ja, een deel van onze portefeuille wordt verhuurd. Bekijk ons aanbod of neem contact op voor beschikbaarheid."
+    },
+    "contact": {
+      "contactH": "Laten we over uw project praten",
+      "contactP": "Kopen, verkopen of huren: laat een bericht achter en we nemen contact met u op."
+    }
+  },
+  "en": {
+    "accueil": {
+      "h1a": "We buy property",
+      "h1b": "and sell at the best price",
+      "lead": "Your property project, our priority. A real estate company based in Genappe since 2002."
+    },
+    "atouts": {
+      "p1": "Buying",
+      "p1s": "residential property",
+      "p2": "Selling",
+      "p2s": "at the best price",
+      "p3": "Guidance",
+      "p3s": "from start to finish",
+      "p4": "Trust",
+      "p4s": "and transparency"
+    },
+    "apropos": {
+      "aboutH": "Your real estate partner",
+      "aboutP": "For over twenty years, ZAM SRL has bought and managed residential property in Walloon Brabant, offering it for sale or rent. You deal with us directly, with no middleman, for a clear and secure transaction.",
+      "b1": "Fair, realistic valuation",
+      "b1s": "An offer based on the property's condition and the local market.",
+      "b2": "Fast, secure transactions",
+      "b2s": "Quick decisions, deed signed at the notary.",
+      "b3": "A personal service",
+      "b3s": "One point of contact, close to you.",
+      "motto": "Invest today, build tomorrow"
+    },
+    "biens": {
+      "listH": "Available properties",
+      "listP": "Houses and apartments from our portfolio, for sale or rent. The properties below are sample listings."
+    },
+    "vendre": {
+      "sellH": "We buy your property",
+      "sellP": "Want to sell quickly, without endless viewings or uncertainty? ZAM SRL makes you a direct purchase offer.",
+      "s1": "First contact",
+      "s1s": "Describe your property by phone or through the form.",
+      "s2": "Viewing",
+      "s2s": "We visit the property with you, with no obligation.",
+      "s3": "Written offer",
+      "s3s": "You receive a clear, reasoned purchase offer.",
+      "s4": "Notarial deed",
+      "s4s": "The sale is completed at the notary of your choice."
+    },
+    "faq": {
+      "faqH": "Frequently asked questions",
+      "faqP": "Can't find your answer? Send us a message and we'll reply quickly.",
+      "q1": "What kind of property do you buy?",
+      "a1": "Mainly residential houses and apartments in Walloon Brabant and neighbouring towns, in any condition.",
+      "q2": "Is the purchase offer free?",
+      "a2": "Yes. The viewing and the offer are free and without obligation.",
+      "q3": "How long does a sale take?",
+      "a3": "Once the offer is accepted, the sales agreement can be signed quickly. The final deed follows within the usual legal period at the notary.",
+      "q4": "Do you offer properties for rent?",
+      "a4": "Yes, part of our portfolio is available to rent. Browse our properties or contact us for availability."
+    },
+    "contact": {
+      "contactH": "Let's talk about your project",
+      "contactP": "Buying, selling or renting: leave us a message and we'll get back to you."
+    }
+  }
+}
